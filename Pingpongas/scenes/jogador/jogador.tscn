@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://de1oal10unb2k" path="res://assets/fillerAssets/clipart895926.png" id="1_tual5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yj6jh"]
-radius = 47.0956
+radius = 48.1664
 
-[node name="Jogador" type="StaticBody2D"]
+[node name="Jogador" type="StaticBody2D" groups=["Jogadores"]]
 position = Vector2(638, 554)
 script = ExtResource("1_1uv67")
 jogador1 = true

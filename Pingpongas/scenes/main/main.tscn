@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2fuu7mme0smc"]
+[gd_scene load_steps=4 format=3 uid="uid://c2fuu7mme0smc"]
 
 [ext_resource type="Texture2D" uid="uid://d18jjpkl5tn5" path="res://assets/fillerAssets/Background Empty.png" id="1_fywhi"]
 [ext_resource type="PackedScene" uid="uid://c5xmdxdpxpu17" path="res://scenes/jogador/jogador.tscn" id="2_w4jgb"]
+[ext_resource type="PackedScene" uid="uid://lfqtxodh77iy" path="res://scenes/bolinha/bolinha.tscn" id="3_prjc1"]
 
 [node name="Main" type="Node2D"]
 
@@ -12,8 +13,11 @@ scale = Vector2(0.563, 0.563)
 texture = ExtResource("1_fywhi")
 
 [node name="Jogador1" parent="." instance=ExtResource("2_w4jgb")]
-position = Vector2(648, 664)
+position = Vector2(648, 672)
 
 [node name="Jogador2" parent="." instance=ExtResource("2_w4jgb")]
-position = Vector2(640, 56)
+position = Vector2(640, 48)
 jogador1 = false
+
+[node name="Bolinha" parent="." instance=ExtResource("3_prjc1")]
+position = Vector2(544, 88)
