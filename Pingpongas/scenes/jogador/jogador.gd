@@ -40,7 +40,7 @@ func move_jogador(delta):
 
 
 func limit_position():
-	position.x = clamp(position.x,400,880)
+	position.x = clamp(position.x,320,960)
 
 func can_hit():
 	return Time.get_ticks_msec() / 1000.0 - last_hit_time >= hit_cooldown

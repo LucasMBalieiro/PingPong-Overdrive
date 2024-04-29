@@ -9,7 +9,7 @@
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
 rotation = 1.5708
-scale = Vector2(0.563, 0.563)
+scale = Vector2(0.563, 0.886964)
 texture = ExtResource("1_fywhi")
 
 [node name="Jogador1" parent="." instance=ExtResource("2_w4jgb")]
@@ -20,4 +20,4 @@ position = Vector2(640, 48)
 jogador1 = false
 
 [node name="Bolinha" parent="." instance=ExtResource("3_prjc1")]
-position = Vector2(544, 88)
+position = Vector2(640, 360)

@@ -5,8 +5,8 @@ var posicao_saque: Vector2 = Vector2(736, 632)
 var direcao: Vector2 = Vector2(0, 0)
 
 #limites da mesa
-var x_min: int = 440
-var x_max: int = 840
+var x_min: int = 320
+var x_max: int = 960
 
 #ultimo que rebateu, usado pra determinar quem "marcou"
 var player1_rebate : bool
