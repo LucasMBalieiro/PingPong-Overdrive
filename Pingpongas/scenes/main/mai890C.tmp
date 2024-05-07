@@ -1,0 +1,204 @@
+[gd_scene load_steps=27 format=3 uid="uid://c2fuu7mme0smc"]
+
+[ext_resource type="Texture2D" uid="uid://d18jjpkl5tn5" path="res://assets/fillerAssets/Background Empty.png" id="1_fywhi"]
+[ext_resource type="PackedScene" uid="uid://c5xmdxdpxpu17" path="res://scenes/jogador/jogador.tscn" id="2_w4jgb"]
+[ext_resource type="Shader" path="res://scenes/main/main.gdshader" id="3_0lo40"]
+[ext_resource type="PackedScene" uid="uid://lfqtxodh77iy" path="res://scenes/bolinha/bolinha.tscn" id="3_prjc1"]
+[ext_resource type="Script" path="res://scenes/main/movement.gd" id="5_ww5w0"]
+[ext_resource type="Script" path="res://scenes/main/hit.gd" id="6_cl7eb"]
+[ext_resource type="Script" path="res://scenes/main/Wall Debug.gd" id="7_ald8b"]
+[ext_resource type="Script" path="res://scenes/main/Ball.gd" id="7_ubavg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pss6h"]
+shader = ExtResource("3_0lo40")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_trlpg"]
+light_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_34wfd"]
+albedo_color = Color(0.176471, 1, 1, 1)
+clearcoat_roughness = 0.0
+anisotropy = -0.75
+refraction_scale = -0.85
+proximity_fade_distance = 5.45
+distance_fade_mode = 2
+distance_fade_min_distance = 0.5
+distance_fade_max_distance = 5.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2gu3n"]
+material = SubResource("StandardMaterial3D_34wfd")
+radius = 0.25
+height = 1.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q4w5r"]
+albedo_color = Color(0.685733, 3.10443e-06, 5.77569e-07, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tujxb"]
+material = SubResource("StandardMaterial3D_q4w5r")
+top_radius = 0.245
+bottom_radius = 0.245
+height = 0.035
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_yvhhg"]
+radius = 0.245
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gl5nu"]
+albedo_color = Color(0.145462, 0.314401, 0.191889, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ow2c3"]
+material = SubResource("StandardMaterial3D_gl5nu")
+size = Vector3(2.75, 0.2, 1.52)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8uj1r"]
+margin = 0.1
+size = Vector3(2.75, 0.2, 1.52)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8d017"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gwak1"]
+albedo_color = Color(1, 0.729412, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.643137, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_w7wa4"]
+material = SubResource("StandardMaterial3D_gwak1")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t7wgg"]
+margin = 0.02
+radius = 0.02
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ywrmn"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7kd0y"]
+albedo_color = Color(0.482353, 1, 0.164706, 1)
+metallic_specular = 0.28
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6nb0j"]
+radius = 0.245
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cadxs"]
+size = Vector3(4, 1, 10)
+
+[node name="Main" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(640, 360)
+rotation = 1.5708
+scale = Vector2(0.563, 0.886964)
+texture = ExtResource("1_fywhi")
+
+[node name="Jogador1" parent="." instance=ExtResource("2_w4jgb")]
+visible = false
+material = SubResource("ShaderMaterial_pss6h")
+position = Vector2(648, 672)
+
+[node name="Jogador2" parent="." instance=ExtResource("2_w4jgb")]
+visible = false
+material = SubResource("CanvasItemMaterial_trlpg")
+position = Vector2(640, 48)
+jogador1 = false
+
+[node name="Bolinha" parent="." instance=ExtResource("3_prjc1")]
+visible = false
+position = Vector2(640, 360)
+
+[node name="Player 1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87, 0.875, 0)
+script = ExtResource("5_ww5w0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player 1"]
+mesh = SubResource("CapsuleMesh_2gu3n")
+
+[node name="Padle" type="Node3D" parent="Player 1/MeshInstance3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.25, 0.1, 0.25)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player 1/MeshInstance3D/Padle"]
+mesh = SubResource("CylinderMesh_tujxb")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Player 1/MeshInstance3D/Padle" node_paths=PackedStringArray("ball")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_yvhhg")
+target_position = Vector3(0, 0, 0)
+script = ExtResource("6_cl7eb")
+ball = NodePath("../../../../Ball")
+
+[node name="Table" type="Node3D" parent="."]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76, 0)
+mesh = SubResource("BoxMesh_ow2c3")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/StaticBody3D"]
+shape = SubResource("BoxShape3D_8uj1r")
+
+[node name="Ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 3
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_8d017")
+linear_velocity = Vector3(-2.5, 0, 0)
+script = ExtResource("7_ubavg")
+table_x_start = -1.375
+table_x_end = 1.375
+table_y_height = 0.86
+table_z_start = -0.76
+table_z_end = 0.76
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
+mesh = SubResource("CapsuleMesh_w7wa4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
+shape = SubResource("SphereShape3D_t7wgg")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ywrmn")
+surface_material_override/0 = SubResource("StandardMaterial3D_7kd0y")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.897258, 0.401433, -0.18379, 0, 0.416281, 0.909236, 0.441506, -0.81582, 0.373511, 0, 0, 0)
+light_color = Color(1, 0.843137, 0.368627, 1)
+shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.105
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.618408, -0.785857, 0, 0.785857, 0.618408, 1, 2.70315e-08, -3.43509e-08, -3.635, 3.34, 0)
+fov = 41.0
+
+[node name="Player 2" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.37, 0.875, 0)
+script = ExtResource("5_ww5w0")
+is_player_1 = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player 2"]
+mesh = SubResource("CapsuleMesh_2gu3n")
+
+[node name="Padle" type="Node3D" parent="Player 2/MeshInstance3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.25, 0.1, 0.25)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player 2/MeshInstance3D/Padle"]
+mesh = SubResource("CylinderMesh_tujxb")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Player 2/MeshInstance3D/Padle"]
+shape = SubResource("SphereShape3D_6nb0j")
+target_position = Vector3(0, 0, 0)
+
+[node name="Wall Debug" type="ShapeCast3D" parent="." node_paths=PackedStringArray("ball")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.88, 0, 0)
+shape = SubResource("BoxShape3D_cadxs")
+target_position = Vector3(1.87, 0, 0)
+debug_shape_custom_color = Color(0, 0.447059, 0.686275, 1)
+script = ExtResource("7_ald8b")
+ball = NodePath("../Ball")

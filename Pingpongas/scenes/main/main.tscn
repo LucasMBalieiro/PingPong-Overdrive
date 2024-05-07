@@ -1,23 +1,424 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2fuu7mme0smc"]
+[gd_scene load_steps=28 format=3 uid="uid://c2fuu7mme0smc"]
 
 [ext_resource type="Texture2D" uid="uid://d18jjpkl5tn5" path="res://assets/fillerAssets/Background Empty.png" id="1_fywhi"]
 [ext_resource type="PackedScene" uid="uid://c5xmdxdpxpu17" path="res://scenes/jogador/jogador.tscn" id="2_w4jgb"]
+[ext_resource type="Shader" path="res://scenes/main/main.gdshader" id="3_0lo40"]
 [ext_resource type="PackedScene" uid="uid://lfqtxodh77iy" path="res://scenes/bolinha/bolinha.tscn" id="3_prjc1"]
+[ext_resource type="Script" path="res://scenes/main/movement.gd" id="5_ww5w0"]
+[ext_resource type="Script" path="res://scenes/main/hit.gd" id="6_cl7eb"]
+[ext_resource type="Script" path="res://scenes/main/Ball.gd" id="7_ubavg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pss6h"]
+shader = ExtResource("3_0lo40")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_trlpg"]
+light_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_34wfd"]
+albedo_color = Color(0.176471, 1, 1, 1)
+clearcoat_roughness = 0.0
+anisotropy = -0.75
+refraction_scale = -0.85
+proximity_fade_distance = 5.45
+distance_fade_mode = 2
+distance_fade_min_distance = 0.5
+distance_fade_max_distance = 5.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2gu3n"]
+material = SubResource("StandardMaterial3D_34wfd")
+radius = 0.25
+height = 1.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q4w5r"]
+albedo_color = Color(0.685733, 3.10443e-06, 5.77569e-07, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tujxb"]
+material = SubResource("StandardMaterial3D_q4w5r")
+top_radius = 0.245
+bottom_radius = 0.245
+height = 0.035
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_yvhhg"]
+radius = 0.245
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gl5nu"]
+albedo_color = Color(0.145098, 0.341176, 0.717647, 1)
+roughness = 0.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_ow2c3"]
+material = SubResource("StandardMaterial3D_gl5nu")
+size = Vector3(2.75, 0.2, 1.52)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8uj1r"]
+margin = 0.1
+size = Vector3(2.75, 0.2, 1.52)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ckg1s"]
+size = Vector3(0.05, 0.153, 1.52)
+subdivide_height = 5
+subdivide_depth = 6
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8d017"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gwak1"]
+albedo_color = Color(1, 0.729412, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.643137, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_w7wa4"]
+material = SubResource("StandardMaterial3D_gwak1")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t7wgg"]
+margin = 0.02
+radius = 0.02
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ywrmn"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7kd0y"]
+albedo_color = Color(0.568814, 0.499975, 0.00842365, 1)
+metallic_specular = 0.28
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cadxs"]
+size = Vector3(4, 1, 10)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_v3wbt"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_guan7"]
+viewport_path = NodePath("SubViewport2")
 
 [node name="Main" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(640, 360)
 rotation = 1.5708
 scale = Vector2(0.563, 0.886964)
 texture = ExtResource("1_fywhi")
 
 [node name="Jogador1" parent="." instance=ExtResource("2_w4jgb")]
+visible = false
+material = SubResource("ShaderMaterial_pss6h")
 position = Vector2(648, 672)
 
 [node name="Jogador2" parent="." instance=ExtResource("2_w4jgb")]
+visible = false
+material = SubResource("CanvasItemMaterial_trlpg")
 position = Vector2(640, 48)
 jogador1 = false
 
 [node name="Bolinha" parent="." instance=ExtResource("3_prjc1")]
+visible = false
 position = Vector2(640, 360)
+
+[node name="Player 1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87, 0.875, 0)
+script = ExtResource("5_ww5w0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player 1"]
+mesh = SubResource("CapsuleMesh_2gu3n")
+
+[node name="Padle" type="Node3D" parent="Player 1/MeshInstance3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.25, 0.1, 0.25)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player 1/MeshInstance3D/Padle"]
+mesh = SubResource("CylinderMesh_tujxb")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Player 1/MeshInstance3D/Padle" node_paths=PackedStringArray("ball")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_yvhhg")
+target_position = Vector3(0, 0, 0)
+script = ExtResource("6_cl7eb")
+ball = NodePath("../../../../Ball")
+strength_multiplier = 0.085
+
+[node name="Player 2" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.87, 0.875, 0)
+script = ExtResource("5_ww5w0")
+is_player_1 = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player 2"]
+mesh = SubResource("CapsuleMesh_2gu3n")
+
+[node name="Padle" type="Node3D" parent="Player 2/MeshInstance3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.25, 0.1, 0.25)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player 2/MeshInstance3D/Padle"]
+mesh = SubResource("CylinderMesh_tujxb")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Player 2/MeshInstance3D/Padle" node_paths=PackedStringArray("ball")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_yvhhg")
+target_position = Vector3(0, 0, 0)
+script = ExtResource("6_cl7eb")
+is_player_1 = false
+ball = NodePath("../../../../Ball")
+
+[node name="Table" type="Node3D" parent="."]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76, 0)
+mesh = SubResource("BoxMesh_ow2c3")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/StaticBody3D"]
+shape = SubResource("BoxShape3D_8uj1r")
+
+[node name="Net" type="Node3D" parent="Table"]
+
+[node name="MeshInstance3D" type="SoftBody3D" parent="Table/Net"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.936, 0)
+mesh = SubResource("BoxMesh_ckg1s")
+linear_stiffness = 1.0
+damping_coefficient = 0.0
+pinned_points = [30, 41, 32, 39, 34, 37, 36, 35, 38, 33, 40, 166, 136, 165, 134, 161, 132, 157, 130, 153, 128, 149, 126, 145, 26, 24, 58, 7, 74, 11, 90, 15, 106, 19, 122, 23, 43, 2, 59, 6, 75, 10, 91, 14, 107, 18, 123, 22, 138, 169, 170, 42]
+attachments/0/point_index = 30
+attachments/0/spatial_attachment_path = NodePath("")
+attachments/0/offset = Vector3(0, 0, 0)
+attachments/1/point_index = 41
+attachments/1/spatial_attachment_path = NodePath("")
+attachments/1/offset = Vector3(0, 0, 0)
+attachments/2/point_index = 32
+attachments/2/spatial_attachment_path = NodePath("")
+attachments/2/offset = Vector3(0, 0, 0)
+attachments/3/point_index = 39
+attachments/3/spatial_attachment_path = NodePath("")
+attachments/3/offset = Vector3(0, 0, 0)
+attachments/4/point_index = 34
+attachments/4/spatial_attachment_path = NodePath("")
+attachments/4/offset = Vector3(0, 0, 0)
+attachments/5/point_index = 37
+attachments/5/spatial_attachment_path = NodePath("")
+attachments/5/offset = Vector3(0, 0, 0)
+attachments/6/point_index = 36
+attachments/6/spatial_attachment_path = NodePath("")
+attachments/6/offset = Vector3(0, 0, 0)
+attachments/7/point_index = 35
+attachments/7/spatial_attachment_path = NodePath("")
+attachments/7/offset = Vector3(0, 0, 0)
+attachments/8/point_index = 38
+attachments/8/spatial_attachment_path = NodePath("")
+attachments/8/offset = Vector3(0, 0, 0)
+attachments/9/point_index = 33
+attachments/9/spatial_attachment_path = NodePath("")
+attachments/9/offset = Vector3(0, 0, 0)
+attachments/10/point_index = 40
+attachments/10/spatial_attachment_path = NodePath("")
+attachments/10/offset = Vector3(0, 0, 0)
+attachments/11/point_index = 166
+attachments/11/spatial_attachment_path = NodePath("")
+attachments/11/offset = Vector3(0, 0, 0)
+attachments/12/point_index = 136
+attachments/12/spatial_attachment_path = NodePath("")
+attachments/12/offset = Vector3(0, 0, 0)
+attachments/13/point_index = 165
+attachments/13/spatial_attachment_path = NodePath("")
+attachments/13/offset = Vector3(0, 0, 0)
+attachments/14/point_index = 134
+attachments/14/spatial_attachment_path = NodePath("")
+attachments/14/offset = Vector3(0, 0, 0)
+attachments/15/point_index = 161
+attachments/15/spatial_attachment_path = NodePath("")
+attachments/15/offset = Vector3(0, 0, 0)
+attachments/16/point_index = 132
+attachments/16/spatial_attachment_path = NodePath("")
+attachments/16/offset = Vector3(0, 0, 0)
+attachments/17/point_index = 157
+attachments/17/spatial_attachment_path = NodePath("")
+attachments/17/offset = Vector3(0, 0, 0)
+attachments/18/point_index = 130
+attachments/18/spatial_attachment_path = NodePath("")
+attachments/18/offset = Vector3(0, 0, 0)
+attachments/19/point_index = 153
+attachments/19/spatial_attachment_path = NodePath("")
+attachments/19/offset = Vector3(0, 0, 0)
+attachments/20/point_index = 128
+attachments/20/spatial_attachment_path = NodePath("")
+attachments/20/offset = Vector3(0, 0, 0)
+attachments/21/point_index = 149
+attachments/21/spatial_attachment_path = NodePath("")
+attachments/21/offset = Vector3(0, 0, 0)
+attachments/22/point_index = 126
+attachments/22/spatial_attachment_path = NodePath("")
+attachments/22/offset = Vector3(0, 0, 0)
+attachments/23/point_index = 145
+attachments/23/spatial_attachment_path = NodePath("")
+attachments/23/offset = Vector3(0, 0, 0)
+attachments/24/point_index = 26
+attachments/24/spatial_attachment_path = NodePath("")
+attachments/24/offset = Vector3(0, 0, 0)
+attachments/25/point_index = 24
+attachments/25/spatial_attachment_path = NodePath("")
+attachments/25/offset = Vector3(0, 0, 0)
+attachments/26/point_index = 58
+attachments/26/spatial_attachment_path = NodePath("")
+attachments/26/offset = Vector3(0, 0, 0)
+attachments/27/point_index = 7
+attachments/27/spatial_attachment_path = NodePath("")
+attachments/27/offset = Vector3(0, 0, 0)
+attachments/28/point_index = 74
+attachments/28/spatial_attachment_path = NodePath("")
+attachments/28/offset = Vector3(0, 0, 0)
+attachments/29/point_index = 11
+attachments/29/spatial_attachment_path = NodePath("")
+attachments/29/offset = Vector3(0, 0, 0)
+attachments/30/point_index = 90
+attachments/30/spatial_attachment_path = NodePath("")
+attachments/30/offset = Vector3(0, 0, 0)
+attachments/31/point_index = 15
+attachments/31/spatial_attachment_path = NodePath("")
+attachments/31/offset = Vector3(0, 0, 0)
+attachments/32/point_index = 106
+attachments/32/spatial_attachment_path = NodePath("")
+attachments/32/offset = Vector3(0, 0, 0)
+attachments/33/point_index = 19
+attachments/33/spatial_attachment_path = NodePath("")
+attachments/33/offset = Vector3(0, 0, 0)
+attachments/34/point_index = 122
+attachments/34/spatial_attachment_path = NodePath("")
+attachments/34/offset = Vector3(0, 0, 0)
+attachments/35/point_index = 23
+attachments/35/spatial_attachment_path = NodePath("")
+attachments/35/offset = Vector3(0, 0, 0)
+attachments/36/point_index = 43
+attachments/36/spatial_attachment_path = NodePath("")
+attachments/36/offset = Vector3(0, 0, 0)
+attachments/37/point_index = 2
+attachments/37/spatial_attachment_path = NodePath("")
+attachments/37/offset = Vector3(0, 0, 0)
+attachments/38/point_index = 59
+attachments/38/spatial_attachment_path = NodePath("")
+attachments/38/offset = Vector3(0, 0, 0)
+attachments/39/point_index = 6
+attachments/39/spatial_attachment_path = NodePath("")
+attachments/39/offset = Vector3(0, 0, 0)
+attachments/40/point_index = 75
+attachments/40/spatial_attachment_path = NodePath("")
+attachments/40/offset = Vector3(0, 0, 0)
+attachments/41/point_index = 10
+attachments/41/spatial_attachment_path = NodePath("")
+attachments/41/offset = Vector3(0, 0, 0)
+attachments/42/point_index = 91
+attachments/42/spatial_attachment_path = NodePath("")
+attachments/42/offset = Vector3(0, 0, 0)
+attachments/43/point_index = 14
+attachments/43/spatial_attachment_path = NodePath("")
+attachments/43/offset = Vector3(0, 0, 0)
+attachments/44/point_index = 107
+attachments/44/spatial_attachment_path = NodePath("")
+attachments/44/offset = Vector3(0, 0, 0)
+attachments/45/point_index = 18
+attachments/45/spatial_attachment_path = NodePath("")
+attachments/45/offset = Vector3(0, 0, 0)
+attachments/46/point_index = 123
+attachments/46/spatial_attachment_path = NodePath("")
+attachments/46/offset = Vector3(0, 0, 0)
+attachments/47/point_index = 22
+attachments/47/spatial_attachment_path = NodePath("")
+attachments/47/offset = Vector3(0, 0, 0)
+attachments/48/point_index = 138
+attachments/48/spatial_attachment_path = NodePath("")
+attachments/48/offset = Vector3(0, 0, 0)
+attachments/49/point_index = 169
+attachments/49/spatial_attachment_path = NodePath("")
+attachments/49/offset = Vector3(0, 0, 0)
+attachments/50/point_index = 170
+attachments/50/spatial_attachment_path = NodePath("")
+attachments/50/offset = Vector3(0, 0, 0)
+attachments/51/point_index = 42
+attachments/51/spatial_attachment_path = NodePath("")
+attachments/51/offset = Vector3(0, 0, 0)
+
+[node name="Ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.6, 0)
+collision_layer = 3
+collision_mask = 3
+mass = 0.02
+physics_material_override = SubResource("PhysicsMaterial_8d017")
+linear_velocity = Vector3(-2, 0, 0)
+script = ExtResource("7_ubavg")
+table_x_start = -1.375
+table_x_end = 1.375
+table_y_height = 0.86
+table_z_start = -0.76
+table_z_end = 0.76
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
+mesh = SubResource("CapsuleMesh_w7wa4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
+shape = SubResource("SphereShape3D_t7wgg")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ywrmn")
+surface_material_override/0 = SubResource("StandardMaterial3D_7kd0y")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.416281, 0.909236, 0, -0.909236, 0.416281, 0, 0, 0)
+light_color = Color(1, 0.843137, 0.368627, 1)
+shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.105
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.800731, -0.599024, 0, 0.599024, 0.800731, 1, 3.50011e-08, -2.61842e-08, -2.45, 3.89, 0)
+fov = 48.0
+
+[node name="Wall Debug" type="ShapeCast3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.88, 0, 0)
+shape = SubResource("BoxShape3D_cadxs")
+target_position = Vector3(1.87, 0, 0)
+debug_shape_custom_color = Color(0, 0.447059, 0.686275, 1)
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+clip_contents = true
+layout_direction = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offset = 640
+dragger_visibility = 2
+
+[node name="TextureRect" type="TextureRect" parent="HSplitContainer"]
+layout_mode = 2
+texture = SubResource("ViewportTexture_v3wbt")
+
+[node name="TextureRect2" type="TextureRect" parent="HSplitContainer"]
+layout_mode = 2
+texture = SubResource("ViewportTexture_guan7")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+msaa_2d = 2
+msaa_3d = 2
+screen_space_aa = 1
+use_taa = true
+use_debanding = true
+use_occlusion_culling = true
+size = Vector2i(960, 1080)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(-4.37114e-08, 0.800731, -0.599024, 0, 0.599024, 0.800731, 1, 3.50011e-08, -2.61842e-08, -2.45, 3.89, 0)
+fov = 48.0
+
+[node name="SubViewport2" type="SubViewport" parent="."]
+size = Vector2i(960, 1080)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport2"]
+transform = Transform3D(-4.37114e-08, -0.800731, 0.599024, 0, 0.599024, 0.800731, -1, 3.50011e-08, -2.61842e-08, 2.45, 3.89, 0)
+fov = 48.0
