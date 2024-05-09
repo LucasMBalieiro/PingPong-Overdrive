@@ -61,6 +61,7 @@ func _on_body_entered(body):
 		velo_bolinha = velo_bolinha * 1.1
 		
 		direcao = collision_normal
+		print(direcao)
 		
 		if body.jogador1:
 			player1_rebate = true

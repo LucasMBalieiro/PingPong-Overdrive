@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dk6vp6tc8uhmd"]
+
+[ext_resource type="PackedScene" uid="uid://4gy1w67gre7q" path="res://scenes/mesa/mesa.tscn" id="1_8h433"]
+[ext_resource type="PackedScene" uid="uid://7yl5vn8y5gkx" path="res://scenes/bolinha/bolinha.tscn" id="2_lovsq"]
+[ext_resource type="PackedScene" uid="uid://dj6uthe21hwao" path="res://scenes/Character/character.tscn" id="3_jlm3m"]
+[ext_resource type="PackedScene" uid="uid://bisqlm1dmdgym" path="res://scenes/mesa/rede.tscn" id="4_q45dd"]
+
+[node name="Main" type="Node3D"]
+
+[node name="CameraIluminacao" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CameraIluminacao"]
+transform = Transform3D(0.733979, 0.658542, -0.166124, -0.311459, 0.543731, 0.779327, 0.603546, -0.520269, 0.604196, -2.01702, 7.75253, 3.59685)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="CameraIluminacao"]
+transform = Transform3D(0.997155, -0.0303827, 0.0689847, 0.00183904, 0.924704, 0.380682, -0.0753566, -0.379472, 0.922129, 1.3241, 4.5859, 9.98664)
+
+[node name="Characters" type="Node3D" parent="."]
+
+[node name="Character" parent="Characters" instance=ExtResource("3_jlm3m")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 5.6)
+
+[node name="Character2" parent="Characters" instance=ExtResource("3_jlm3m")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, -5.6)
+player1 = false
+
+[node name="Mesa" parent="." instance=ExtResource("1_8h433")]
+
+[node name="Bolinha" parent="." instance=ExtResource("2_lovsq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1, 4)
+
+[node name="Rede" parent="." instance=ExtResource("4_q45dd")]

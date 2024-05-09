@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://bisqlm1dmdgym"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2wfvx"]
+size = Vector3(6.8, 0.6, 0.08)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_43olx"]
+size = Vector3(6.8, 0.6, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tt0sj"]
+size = Vector3(0.2, 1, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_la3mr"]
+size = Vector3(0.2, 1, 0.2)
+
+[node name="Rede" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.594671, 0)
+mesh = SubResource("BoxMesh_2wfvx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.588472, 0)
+shape = SubResource("BoxShape3D_43olx")
+
+[node name="Pino1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.07925, 0, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pino1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.45, 0)
+mesh = SubResource("BoxMesh_tt0sj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pino1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.45, 0)
+shape = SubResource("BoxShape3D_la3mr")
+
+[node name="Pino2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 0, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pino2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.45, 0)
+mesh = SubResource("BoxMesh_tt0sj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pino2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.45, 0)
+shape = SubResource("BoxShape3D_la3mr")
