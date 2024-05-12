@@ -1,0 +1,16 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1715442342
+icon.svg::CompressedTexture2D::4995794400041455795::1715442194::1715442343::1::::<><>::
+::res://scenes/::1715442194
+::res://scenes/bolinha/::1715442194
+bolinha.gd::GDScript::-1::1715442194::0::1::::<>RigidBody3D<>::
+bolinha.tscn::PackedScene::2296310647857486803::1715442194::0::1::::<><>::res://scenes/bolinha/bolinha.gd
+::res://scenes/Character/::1715442194
+character.gd::GDScript::-1::1715442194::0::1::::player<>CharacterBody3D<>::
+character.tscn::PackedScene::7856205999241440414::1715442194::0::1::::<><>::res://scenes/Character/character.gd
+Dash.gd::GDScript::-1::1715442194::0::1::::<>Timer<>::
+::res://scenes/main/::1715442194
+main.tscn::PackedScene::7926449699303052135::1715442194::0::1::::<><>::uid://4gy1w67gre7q::::res://scenes/mesa/mesa.tscn<>uid://7yl5vn8y5gkx::::res://scenes/bolinha/bolinha.tscn<>uid://dj6uthe21hwao::::res://scenes/Character/character.tscn<>uid://bisqlm1dmdgym::::res://scenes/mesa/rede.tscn
+::res://scenes/mesa/::1715442194
+mesa.tscn::PackedScene::2049367575360485768::1715442194::0::1::::<><>::
+rede.tscn::PackedScene::2986082018585237900::1715442194::0::1::::<><>::

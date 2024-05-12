@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c2fuu7mme0smc"]
+[gd_scene load_steps=32 format=3 uid="uid://c2fuu7mme0smc"]
 
 [ext_resource type="Texture2D" uid="uid://d18jjpkl5tn5" path="res://assets/fillerAssets/Background Empty.png" id="1_fywhi"]
 [ext_resource type="PackedScene" uid="uid://c5xmdxdpxpu17" path="res://scenes/jogador/jogador.tscn" id="2_w4jgb"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scenes/main/movement.gd" id="5_ww5w0"]
 [ext_resource type="Script" path="res://scenes/main/hit.gd" id="6_cl7eb"]
 [ext_resource type="Script" path="res://scenes/main/Ball.gd" id="7_ubavg"]
+[ext_resource type="Script" path="res://scenes/main/GameManager.gd" id="8_dqs6r"]
+[ext_resource type="Script" path="res://scenes/main/Point Spot.gd" id="9_v3bfc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pss6h"]
 shader = ExtResource("3_0lo40")
@@ -87,10 +89,18 @@ metallic_specular = 0.28
 size = Vector3(4, 1, 10)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_v3wbt"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("Viewport player_1")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_guan7"]
-viewport_path = NodePath("SubViewport2")
+viewport_path = NodePath("Viewport player_2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2i1kk"]
+albedo_color = Color(0.780702, 0.000474377, 0.78112, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_tjvp3"]
+material = SubResource("StandardMaterial3D_2i1kk")
+inner_radius = 0.022
+outer_radius = 0.046
 
 [node name="Main" type="Node2D"]
 
@@ -129,13 +139,12 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.25, 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player 1/MeshInstance3D/Padle"]
 mesh = SubResource("CylinderMesh_tujxb")
 
-[node name="ShapeCast3D" type="ShapeCast3D" parent="Player 1/MeshInstance3D/Padle" node_paths=PackedStringArray("ball")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Player 1" node_paths=PackedStringArray("ball")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0.25, 0.1, 0.25)
 shape = SubResource("CylinderShape3D_yvhhg")
 target_position = Vector3(0, 0, 0)
 script = ExtResource("6_cl7eb")
-ball = NodePath("../../../../Ball")
-strength_multiplier = 0.085
+ball = NodePath("../../Ball")
 
 [node name="Player 2" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.87, 0.875, 0)
@@ -339,7 +348,7 @@ attachments/51/point_index = 42
 attachments/51/spatial_attachment_path = NodePath("")
 attachments/51/offset = Vector3(0, 0, 0)
 
-[node name="Ball" type="RigidBody3D" parent="."]
+[node name="Ball" type="RigidBody3D" parent="." node_paths=PackedStringArray("game_manager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.6, 0)
 collision_layer = 3
 collision_mask = 3
@@ -352,6 +361,7 @@ table_x_end = 1.375
 table_y_height = 0.86
 table_z_start = -0.76
 table_z_end = 0.76
+game_manager = NodePath("../GameManager")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
 mesh = SubResource("CapsuleMesh_w7wa4")
@@ -380,7 +390,7 @@ shape = SubResource("BoxShape3D_cadxs")
 target_position = Vector3(1.87, 0, 0)
 debug_shape_custom_color = Color(0, 0.447059, 0.686275, 1)
 
-[node name="HSplitContainer" type="HSplitContainer" parent="."]
+[node name="SplitViewContainer" type="HSplitContainer" parent="."]
 clip_contents = true
 layout_direction = 2
 anchors_preset = 15
@@ -395,15 +405,15 @@ size_flags_vertical = 3
 split_offset = 640
 dragger_visibility = 2
 
-[node name="TextureRect" type="TextureRect" parent="HSplitContainer"]
+[node name="TexturePlayer1Cam" type="TextureRect" parent="SplitViewContainer"]
 layout_mode = 2
 texture = SubResource("ViewportTexture_v3wbt")
 
-[node name="TextureRect2" type="TextureRect" parent="HSplitContainer"]
+[node name="TexturePlayer2Cam" type="TextureRect" parent="SplitViewContainer"]
 layout_mode = 2
 texture = SubResource("ViewportTexture_guan7")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="Viewport player_1" type="SubViewport" parent="."]
 msaa_2d = 2
 msaa_3d = 2
 screen_space_aa = 1
@@ -412,13 +422,52 @@ use_debanding = true
 use_occlusion_culling = true
 size = Vector2i(960, 1080)
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="Viewport player_1"]
 transform = Transform3D(-4.37114e-08, 0.800731, -0.599024, 0, 0.599024, 0.800731, 1, 3.50011e-08, -2.61842e-08, -2.45, 3.89, 0)
 fov = 48.0
 
-[node name="SubViewport2" type="SubViewport" parent="."]
+[node name="Viewport player_2" type="SubViewport" parent="."]
 size = Vector2i(960, 1080)
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport2"]
+[node name="Camera3D" type="Camera3D" parent="Viewport player_2"]
 transform = Transform3D(-4.37114e-08, -0.800731, 0.599024, 0, 0.599024, 0.800731, -1, 3.50011e-08, -2.61842e-08, 2.45, 3.89, 0)
 fov = 48.0
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -42.0
+offset_right = 45.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 61
+text = "2-0"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+drag_and_drop_selection_enabled = false
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("score_board", "point_spot")]
+script = ExtResource("8_dqs6r")
+score_board = NodePath("../UI/RichTextLabel")
+timer_time = 2.0
+point_spot = NodePath("../Point Spot")
+
+[node name="Point Spot" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_tjvp3")
+script = ExtResource("9_v3bfc")
