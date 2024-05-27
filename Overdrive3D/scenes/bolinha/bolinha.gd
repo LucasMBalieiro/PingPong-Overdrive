@@ -8,7 +8,7 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("reset"):
 		set_linear_velocity(Vector3(0, 0, 0))
-		set_axis_velocity(Vector3(0,0,0))
+		set_angular_velocity(Vector3(0,0,0))
 		set_position(Vector3(1.8, 1, 4))
 
 
