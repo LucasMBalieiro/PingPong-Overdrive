@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bisqlm1dmdgym"]
+[gd_scene load_steps=7 format=3 uid="uid://bisqlm1dmdgym"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_2wfvx"]
-size = Vector3(6.8, 0.6, 0.08)
+[ext_resource type="ArrayMesh" uid="uid://bilbgjh066o2l" path="res://textures/3d/rede/Rede Protótipo.obj" id="1_dmfso"]
+[ext_resource type="Texture2D" uid="uid://fiy1gnk4nbi4" path="res://textures/3d/rede/Rede_mtl_Alpha.png" id="2_f4jj4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nr3uv"]
+albedo_texture = ExtResource("2_f4jj4")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_43olx"]
 size = Vector3(6.8, 0.6, 0.08)
@@ -15,8 +18,9 @@ size = Vector3(0.2, 1, 0.2)
 [node name="Rede" type="StaticBody3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.594671, 0)
-mesh = SubResource("BoxMesh_2wfvx")
+transform = Transform3D(2.15043, 0, -2.01924, 0, 5.7052, 0, 2.01924, 0, 2.15043, 0, 0.0385488, 0.0326064)
+mesh = ExtResource("1_dmfso")
+surface_material_override/0 = SubResource("StandardMaterial3D_nr3uv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.588472, 0)

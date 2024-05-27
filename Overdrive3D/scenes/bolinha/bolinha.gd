@@ -1,21 +1,49 @@
 extends RigidBody3D
 
-var direcao : Vector3 = Vector3(0, 0, 0)
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	pass # Replace with function body.
+	pass
+
+func _process(_delta):
+	if Input.is_action_just_pressed("reset"):
+		set_linear_velocity(Vector3(0, 0, 0))
+		set_axis_velocity(Vector3(0,0,0))
+		set_position(Vector3(1.8, 1, 4))
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Input.is_action_pressed("bateA_1"):
-			apply_central_impulse(Vector3(-0.25, 0.5, -1))
+func move_bolinha(player1, direcao):
+	if player1:
+		if direcao == "A":
+			set_position(Vector3(global_position[0], 1, 4))
+			set_linear_velocity(Vector3(0, 0, 0))
+			set_angular_velocity(Vector3(0,0,0))
+			apply_central_impulse(Vector3(-2, 3.5, -7))
+		if direcao == "B":
+			set_position(Vector3(global_position[0], 1, 4))
+			set_linear_velocity(Vector3(0, 0, 0))
+			set_axis_velocity(Vector3(0,0,0))
+			apply_central_impulse(Vector3(0, 3.5, -7))
+		if direcao == "C":
+			set_position(Vector3(global_position[0], 1, 4))
+			set_linear_velocity(Vector3(0, 0, 0))
+			set_axis_velocity(Vector3(0,0,0))
+			apply_central_impulse(Vector3(2, 3.5, -7))
+	else:
+		if direcao == "A":
+			set_position(Vector3(global_position[0], 1, -4))
+			set_linear_velocity(Vector3(0, 0, 0))
+			set_axis_velocity(Vector3(0,0,0))
+			apply_central_impulse(Vector3(-2, 3.5, 7))
+		if direcao == "B":
+			set_position(Vector3(global_position[0], 1, -4))
+			set_linear_velocity(Vector3(0, 0, 0))
+			set_axis_velocity(Vector3(0,0,0))
+			apply_central_impulse(Vector3(0, 3.5, 7))
+		if direcao == "C":
+			set_position(Vector3(global_position[0], 1, -4))
+			set_linear_velocity(Vector3(0, 0, 0))
+			set_axis_velocity(Vector3(0,0,0))
+			apply_central_impulse(Vector3(2, 3.5, 7))
 
-
-func _on_body_entered(body):
-	print("poee")
-	if body.is_in_group("Jogadores"):
-		if Input.is_action_pressed("bateA_1"):
-			apply_central_impulse(Vector3(-0.25, 0.5, -1))
 

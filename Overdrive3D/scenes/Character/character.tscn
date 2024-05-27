@@ -1,19 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dj6uthe21hwao"]
+[gd_scene load_steps=5 format=3 uid="uid://dj6uthe21hwao"]
 
 [ext_resource type="Script" path="res://scenes/Character/character.gd" id="1_0tijo"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3wybk"]
-size = Vector3(1.5, 2, 2)
+[ext_resource type="PackedScene" uid="uid://n5v7yi3o4k2w" path="res://scenes/hitbox/hit_box.tscn" id="2_b2uxx"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_cjlge"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_abotk"]
 
 [node name="Character" type="CharacterBody3D" groups=["Jogadores"]]
 motion_mode = 1
 script = ExtResource("1_0tijo")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Jogadores"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.242, -0.001)
-shape = SubResource("BoxShape3D_3wybk")
+[node name="HitBox" parent="." instance=ExtResource("2_b2uxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28831, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["Jogadores"]]
 mesh = SubResource("CapsuleMesh_cjlge")
@@ -24,6 +23,9 @@ one_shot = true
 [node name="Dashing" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_abotk")
 
 [connection signal="timeout" from="Can_dash" to="." method="_on_can_dash_timeout"]
 [connection signal="timeout" from="Dashing" to="." method="_on_dashing_timeout"]

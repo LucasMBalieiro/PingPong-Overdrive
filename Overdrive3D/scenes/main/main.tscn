@@ -14,7 +14,8 @@ transform = Transform3D(0.733979, 0.658542, -0.166124, -0.311459, 0.543731, 0.77
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraIluminacao"]
-transform = Transform3D(0.997155, -0.0303827, 0.0689847, 0.00183904, 0.924704, 0.380682, -0.0753566, -0.379472, 0.922129, 1.3241, 4.5859, 9.98664)
+transform = Transform3D(0.997986, -0.0244553, 0.0585347, -0.00759005, 0.87005, 0.492905, -0.0629823, -0.492357, 0.868112, 2.26895, 5.25492, 9.19602)
+fov = 90.0
 
 [node name="Characters" type="Node3D" parent="."]
 
@@ -31,3 +32,4 @@ player1 = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1, 4)
 
 [node name="Rede" parent="." instance=ExtResource("4_q45dd")]
+transform = Transform3D(1.141, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
