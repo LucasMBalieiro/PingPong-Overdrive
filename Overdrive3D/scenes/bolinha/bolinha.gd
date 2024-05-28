@@ -1,7 +1,5 @@
 extends RigidBody3D
 
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-
 func _ready():
 	pass
 
@@ -15,33 +13,33 @@ func _process(_delta):
 func move_bolinha(player1, direcao):
 	if player1:
 		if direcao == "A":
-			set_position(Vector3(global_position[0], 1, 4))
+			set_position(Vector3(position.x, 1, 4))
 			set_linear_velocity(Vector3(0, 0, 0))
 			set_angular_velocity(Vector3(0,0,0))
 			apply_central_impulse(Vector3(-2, 3.5, -7))
 		if direcao == "B":
-			set_position(Vector3(global_position[0], 1, 4))
+			set_position(Vector3(position.x, 1, 4))
 			set_linear_velocity(Vector3(0, 0, 0))
 			set_axis_velocity(Vector3(0,0,0))
 			apply_central_impulse(Vector3(0, 3.5, -7))
 		if direcao == "C":
-			set_position(Vector3(global_position[0], 1, 4))
+			set_position(Vector3(position.x, 1, 4))
 			set_linear_velocity(Vector3(0, 0, 0))
 			set_axis_velocity(Vector3(0,0,0))
 			apply_central_impulse(Vector3(2, 3.5, -7))
 	else:
 		if direcao == "A":
-			set_position(Vector3(global_position[0], 1, -4))
+			set_position(Vector3(position.x, 1, -4))
 			set_linear_velocity(Vector3(0, 0, 0))
 			set_axis_velocity(Vector3(0,0,0))
 			apply_central_impulse(Vector3(-2, 3.5, 7))
 		if direcao == "B":
-			set_position(Vector3(global_position[0], 1, -4))
+			set_position(Vector3(position.x, 1, -4))
 			set_linear_velocity(Vector3(0, 0, 0))
 			set_axis_velocity(Vector3(0,0,0))
 			apply_central_impulse(Vector3(0, 3.5, 7))
 		if direcao == "C":
-			set_position(Vector3(global_position[0], 1, -4))
+			set_position(Vector3(position.x, 1, -4))
 			set_linear_velocity(Vector3(0, 0, 0))
 			set_axis_velocity(Vector3(0,0,0))
 			apply_central_impulse(Vector3(2, 3.5, 7))

@@ -8,10 +8,6 @@ const _movespeed = 5.0
 const DASHSPEED = _movespeed * 4
 var SPEED = 5.0
 
-
-var last_hit_time = 0.0
-const hit_cooldown = 1000
-
 @export var player1 = true
 var dashing = false
 var can_dash = true
