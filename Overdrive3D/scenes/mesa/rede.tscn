@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://bisqlm1dmdgym"]
+[gd_scene load_steps=9 format=3 uid="uid://bisqlm1dmdgym"]
 
 [ext_resource type="ArrayMesh" uid="uid://bilbgjh066o2l" path="res://textures/3d/rede/Rede Protótipo.obj" id="1_dmfso"]
 [ext_resource type="Texture2D" uid="uid://fiy1gnk4nbi4" path="res://textures/3d/rede/Rede_mtl_Alpha.png" id="2_f4jj4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nr3uv"]
+transparency = 1
+blend_mode = 1
+depth_draw_mode = 1
 albedo_texture = ExtResource("2_f4jj4")
+albedo_texture_force_srgb = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_43olx"]
 size = Vector3(6.8, 0.6, 0.08)
@@ -12,8 +16,14 @@ size = Vector3(6.8, 0.6, 0.08)
 [sub_resource type="BoxMesh" id="BoxMesh_tt0sj"]
 size = Vector3(0.2, 1, 0.2)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_syrvb"]
+albedo_color = Color(0.405939, 0.185386, 0, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_la3mr"]
 size = Vector3(0.2, 1, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg630"]
+albedo_color = Color(0.405939, 0.185386, 0, 1)
 
 [node name="Rede" type="StaticBody3D"]
 
@@ -33,6 +43,7 @@ metadata/_edit_group_ = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pino1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.45, 0)
 mesh = SubResource("BoxMesh_tt0sj")
+surface_material_override/0 = SubResource("StandardMaterial3D_syrvb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pino1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.45, 0)
@@ -45,6 +56,7 @@ metadata/_edit_group_ = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pino2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.45, 0)
 mesh = SubResource("BoxMesh_tt0sj")
+surface_material_override/0 = SubResource("StandardMaterial3D_hg630")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pino2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.45, 0)
