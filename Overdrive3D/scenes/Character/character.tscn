@@ -24,8 +24,13 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="Can_hit" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_abotk")
 
 [connection signal="timeout" from="Can_dash" to="." method="_on_can_dash_timeout"]
 [connection signal="timeout" from="Dashing" to="." method="_on_dashing_timeout"]
+[connection signal="timeout" from="Can_hit" to="." method="_on_can_hit_timeout"]

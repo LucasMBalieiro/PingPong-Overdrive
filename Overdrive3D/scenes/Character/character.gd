@@ -11,6 +11,7 @@ var SPEED = 5.0
 @export var player1 = true
 var dashing = false
 var can_dash = true
+var can_hit = true
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -52,6 +53,36 @@ func dash():
 	$Can_dash.start()
 	SPEED = DASHSPEED
 
+func hit_time():
+	can_hit = false
+	$Can_hit.start()
+
+func bater():
+	var bodies = hitbox.get_overlapping_bodies()
+	
+	for bolinha in bodies:
+		if (bolinha.has_method("move_bolinha") and can_hit):
+			if player1:
+				if Input.is_action_just_pressed("bateA_1"):
+					bolinha.move_bolinha(player1, "A")
+					hit_time()
+				if Input.is_action_just_pressed("bateB_1"):
+					bolinha.move_bolinha(player1, "B")
+					hit_time()
+				if Input.is_action_just_pressed("bateC_1"):
+					bolinha.move_bolinha(player1, "C")
+					hit_time()
+			else:
+				if Input.is_action_just_pressed("bateA_2"):
+					bolinha.move_bolinha(player1, "A")
+					hit_time()
+				if Input.is_action_just_pressed("bateB_2"):
+					bolinha.move_bolinha(player1, "B")
+					hit_time()
+				if Input.is_action_just_pressed("bateC_2"):
+					bolinha.move_bolinha(player1, "C")
+					hit_time()
+
 func _on_can_dash_timeout():
 	can_dash = true
 
@@ -59,23 +90,5 @@ func _on_dashing_timeout():
 	SPEED = _movespeed
 	dashing = false
 
-func bater():
-	var bodies = hitbox.get_overlapping_bodies()
-	
-	for bolinha in bodies:
-		if bolinha.has_method("move_bolinha"):
-			if player1:
-				if Input.is_action_just_pressed("bateA_1"):
-					bolinha.move_bolinha(player1, "A")
-				if Input.is_action_just_pressed("bateB_1"):
-					bolinha.move_bolinha(player1, "B")
-				if Input.is_action_just_pressed("bateC_1"):
-					bolinha.move_bolinha(player1, "C")
-			else:
-				if Input.is_action_just_pressed("bateA_2"):
-					bolinha.move_bolinha(player1, "A")
-				if Input.is_action_just_pressed("bateB_2"):
-					bolinha.move_bolinha(player1, "B")
-				if Input.is_action_just_pressed("bateC_2"):
-					bolinha.move_bolinha(player1, "C")
-
+func _on_can_hit_timeout():
+	can_hit = true
