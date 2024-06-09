@@ -10,6 +10,7 @@ func _process(_delta):
 		set_linear_velocity(Vector3(0, 0, 0))
 		set_angular_velocity(Vector3(0,0,0))
 		set_position(Vector3(1.8, 1, 4))
+		set_rotation(Vector3(0,0,0))
 		
 	if Input.is_action_just_pressed("gravity"):
 		speed = 1.3
