@@ -1,12 +1,12 @@
 extends CharacterBody3D
-class_name player
 var collision_shape: CollisionShape3D
 
 @onready var hitbox = $HitBox
 
+@export var SPEED = 5.0
 const _movespeed = 5.0
 const DASHSPEED = _movespeed * 4
-var SPEED = 5.0
+
 
 @export var player1 = true
 var dashing = false
@@ -44,7 +44,7 @@ func movimentacao(delta):
 			position += (Vector3(1 , 0 , 0) * SPEED * delta)
 
 func move_border():
-	position.x = clamp(position.x, -4, 4)
+	position.x = clamp(position.x, -4.5, 4.5)
 
 func dash():
 	can_dash = false

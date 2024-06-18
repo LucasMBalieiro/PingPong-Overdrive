@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dk6vp6tc8uhmd"]
+[gd_scene load_steps=6 format=3 uid="uid://dk6vp6tc8uhmd"]
 
+[ext_resource type="Script" path="res://scenes/main/mainManager.gd" id="1_7ngjm"]
 [ext_resource type="PackedScene" uid="uid://4gy1w67gre7q" path="res://scenes/mesa/mesa.tscn" id="1_8h433"]
 [ext_resource type="PackedScene" uid="uid://7yl5vn8y5gkx" path="res://scenes/bolinha/bolinha.tscn" id="2_lovsq"]
 [ext_resource type="PackedScene" uid="uid://dj6uthe21hwao" path="res://scenes/Character/character.tscn" id="3_jlm3m"]
 [ext_resource type="PackedScene" uid="uid://bisqlm1dmdgym" path="res://scenes/mesa/rede.tscn" id="4_q45dd"]
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_7ngjm")
+PlayerScene = ExtResource("3_jlm3m")
 
 [node name="CameraIluminacao" type="Node3D" parent="."]
 
@@ -14,22 +17,23 @@ transform = Transform3D(0.733979, 0.658542, -0.166124, -0.311459, 0.543731, 0.77
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraIluminacao"]
-transform = Transform3D(1, 0, 0, 0, 0.836391, 0.548133, 0, -0.548133, 0.836391, 0.210628, 5.91728, 10.4767)
+transform = Transform3D(1, 0, 0, 0, 0.836391, 0.548133, 0, -0.548133, 0.836391, 0.211, 5.917, 10.5)
 fov = 50.0
 
-[node name="Characters" type="Node3D" parent="."]
+[node name="Mesa" type="Node3D" parent="."]
 
-[node name="Character" parent="Characters" instance=ExtResource("3_jlm3m")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 5.6)
+[node name="Mesa" parent="Mesa" instance=ExtResource("1_8h433")]
 
-[node name="Character2" parent="Characters" instance=ExtResource("3_jlm3m")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, -5.6)
-player1 = false
-
-[node name="Mesa" parent="." instance=ExtResource("1_8h433")]
-
-[node name="Bolinha" parent="." instance=ExtResource("2_lovsq")]
+[node name="Bolinha" parent="Mesa" instance=ExtResource("2_lovsq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1, 4)
 
-[node name="Rede" parent="." instance=ExtResource("4_q45dd")]
+[node name="Rede" parent="Mesa" instance=ExtResource("4_q45dd")]
 transform = Transform3D(1.141, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+
+[node name="0" type="Node3D" parent="SpawnPoints" groups=["PlayerSpawnPoint"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 5.6)
+
+[node name="1" type="Node3D" parent="SpawnPoints" groups=["PlayerSpawnPoint"]]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, -5.6)

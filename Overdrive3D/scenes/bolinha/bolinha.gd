@@ -6,14 +6,8 @@ func _ready():
 	Engine.set_physics_ticks_per_second(128)
 
 func _process(_delta):
-	if Input.is_action_just_pressed("reset"):
-		set_linear_velocity(Vector3(0, 0, 0))
-		set_angular_velocity(Vector3(0,0,0))
-		set_position(Vector3(1.8, 1, 4))
-		
-	if Input.is_action_just_pressed("gravity"):
-		speed = 1.3
-
+	restart()
+	test()
 
 func move_bolinha(player1, direcao):
 	
@@ -54,3 +48,19 @@ func move_bolinha(player1, direcao):
 			set_axis_velocity(Vector3(0,0,0))
 			apply_central_impulse(Vector3(2, 3.5, 7) * speed)
 
+func restart():
+	if position.y < -1:
+		set_linear_velocity(Vector3(0, 0, 0))
+		set_angular_velocity(Vector3(0,0,0))
+		set_position(Vector3(1.8, 1, 4))
+		speed = 1.3
+
+func test():
+	if Input.is_action_just_pressed("reset"):
+		set_linear_velocity(Vector3(0, 0, 0))
+		set_angular_velocity(Vector3(0,0,0))
+		set_position(Vector3(1.8, 1, 4))
+		
+	if Input.is_action_just_pressed("gravity"):
+		speed = 1.3
+	
