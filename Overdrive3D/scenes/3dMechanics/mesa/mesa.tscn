@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://4gy1w67gre7q"]
+
+[ext_resource type="ArrayMesh" uid="uid://lafvhvviwx7g" path="res://textures/3d/mesa/Mesa Protótipo.obj" id="1_bs5og"]
+[ext_resource type="Texture2D" uid="uid://ch20xpo5u3x4r" path="res://textures/3d/mesa/Mesa_mtl_BaseColor.png" id="2_yrs43"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m72jr"]
+size = Vector3(8.06396, 0.2, 9.62555)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3bj5u"]
+albedo_texture = ExtResource("2_yrs43")
+
+[node name="Mesa" type="StaticBody3D"]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00854492, 0, -0.00112915)
+shape = SubResource("BoxShape3D_m72jr")
+
+[node name="Modelo3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.57679, 0, -2.3945, 0, 3.61703, 0, 2.3945, 0, 2.57679, 0, 0, 0)
+mesh = ExtResource("1_bs5og")
+surface_material_override/0 = SubResource("StandardMaterial3D_3bj5u")

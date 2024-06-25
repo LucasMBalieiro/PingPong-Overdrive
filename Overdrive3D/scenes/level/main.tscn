@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk6vp6tc8uhmd"]
+
+[ext_resource type="PackedScene" uid="uid://dj6uthe21hwao" path="res://scenes/3dMechanics/Character/character.tscn" id="1_2dlmi"]
+[ext_resource type="Script" path="res://scenes/level/sceneManager.gd" id="1_ewtoi"]
+[ext_resource type="PackedScene" uid="uid://4gy1w67gre7q" path="res://scenes/3dMechanics/mesa/mesa.tscn" id="2_kjm32"]
+[ext_resource type="PackedScene" uid="uid://7yl5vn8y5gkx" path="res://scenes/3dMechanics/bolinha/bolinha.tscn" id="3_cv6xa"]
+[ext_resource type="PackedScene" uid="uid://bisqlm1dmdgym" path="res://scenes/3dMechanics/mesa/rede.tscn" id="4_wsvap"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_ewtoi")
+PlayerScene = ExtResource("1_2dlmi")
+
+[node name="CameraIluminacao" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CameraIluminacao"]
+transform = Transform3D(0.733979, 0.658542, -0.166124, -0.311459, 0.543731, 0.779327, 0.603546, -0.520269, 0.604196, -2.01702, 7.75253, 3.59685)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="CameraIluminacao"]
+transform = Transform3D(1, 0, 0, 0, 0.836391, 0.548133, 0, -0.548133, 0.836391, 0.210628, 5.91728, 10.4767)
+fov = 50.0
+
+[node name="3dAssetsTable" type="Node3D" parent="."]
+
+[node name="Mesa" parent="3dAssetsTable" instance=ExtResource("2_kjm32")]
+
+[node name="Bolinha" parent="3dAssetsTable" instance=ExtResource("3_cv6xa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1, 4)
+
+[node name="Rede" parent="3dAssetsTable" instance=ExtResource("4_wsvap")]
+transform = Transform3D(1.141, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5.6)
+
+[node name="0" type="Node3D" parent="SpawnPoints" groups=["PlayerSpawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.2)
+
+[node name="1" type="Node3D" parent="SpawnPoints" groups=["PlayerSpawnPoint"]]

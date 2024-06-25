@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://dj6uthe21hwao"]
+
+[ext_resource type="Script" path="res://scenes/3dMechanics/Character/character.gd" id="1_0tijo"]
+[ext_resource type="PackedScene" uid="uid://n5v7yi3o4k2w" path="res://scenes/3dMechanics/hitbox/hit_box.tscn" id="2_b2uxx"]
+[ext_resource type="Texture2D" uid="uid://cdgaaeqi7hev8" path="res://icon.svg" id="3_h27ti"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hst5o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ufwph"]
+albedo_texture = ExtResource("3_h27ti")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cjlge"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_abotk"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lky25"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Character" type="CharacterBody3D" groups=["Jogadores"]]
+motion_mode = 1
+script = ExtResource("1_0tijo")
+
+[node name="HitBox" parent="." instance=ExtResource("2_b2uxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28831, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HitBox"]
+mesh = SubResource("BoxMesh_hst5o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["Jogadores"]]
+material_override = SubResource("StandardMaterial3D_ufwph")
+mesh = SubResource("CapsuleMesh_cjlge")
+
+[node name="Can_dash" type="Timer" parent="."]
+one_shot = true
+
+[node name="Dashing" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Can_hit" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_abotk")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_lky25")
+
+[connection signal="timeout" from="Can_dash" to="." method="_on_can_dash_timeout"]
+[connection signal="timeout" from="Dashing" to="." method="_on_dashing_timeout"]
+[connection signal="timeout" from="Can_hit" to="." method="_on_can_hit_timeout"]
