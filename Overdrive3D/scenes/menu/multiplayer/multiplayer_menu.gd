@@ -85,3 +85,11 @@ func _on_join_button_down():
 func _on_start_game_button_down():
 	StartGame.rpc()
 	pass # Replace with function body.
+
+
+func _on_button_ip_button_down():
+	Address = $SetNetwork/SetIpv4.text
+
+
+func _on_button_port_button_down():
+	port = int($SetNetwork/SetPort.text)

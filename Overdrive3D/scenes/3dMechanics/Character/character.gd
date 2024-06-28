@@ -2,11 +2,9 @@ extends CharacterBody3D
 class_name player
 var collision_shape: CollisionShape3D
 
-const _movespeed = 5.0
-const DASHSPEED = _movespeed * 4
 var SPEED = 5.0
 
-var player1
+var player1: bool
 var dashing = false
 var can_dash = true
 var can_hit = true
@@ -26,12 +24,18 @@ func _physics_process(delta):
 
 func movimentacao(delta):
 	if Input.is_action_just_pressed("dash_1") and can_dash:
-				dash()
+		dash()
 	if Input.is_action_pressed("esq_1"):
-		position += (Vector3(-1 , 0 , 0) * SPEED * delta)
-		
+		if player1:
+			position += (Vector3(-1 , 0 , 0) * SPEED * delta)
+		else:
+			position += (Vector3(1 , 0 , 0) * SPEED * delta)
 	elif Input.is_action_pressed("dir_1"):
-		position += (Vector3(1 , 0 , 0) * SPEED * delta)
+		if player1:
+			position += (Vector3(1 , 0 , 0) * SPEED * delta)
+		else:
+			position += (Vector3(-1 , 0 , 0) * SPEED * delta)
+	pass
 
 func move_border():
 	position.x = clamp(position.x, -4, 4)
@@ -41,7 +45,7 @@ func dash():
 	dashing = true
 	$Dashing.start()
 	$Can_dash.start()
-	SPEED = DASHSPEED
+	SPEED = SPEED * 4
 
 func hit_time():
 	can_hit = false
@@ -76,7 +80,7 @@ func _on_can_dash_timeout():
 	can_dash = true
 
 func _on_dashing_timeout():
-	SPEED = _movespeed
+	SPEED = SPEED / 4
 	dashing = false
 
 func _on_can_hit_timeout():
