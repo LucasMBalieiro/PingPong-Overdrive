@@ -1,6 +1,6 @@
 extends Control
 
-@export var Address = "127.0.0.1"
+@export var Address = "0.0.0.0"
 @export var port = 8910
 var peer
 
@@ -22,6 +22,11 @@ func peer_connected(id):
 # chama server e client
 func peer_disconnected(id):
 	print("Player Disconnected: " + str(id))
+	GameManager.Players.erase(id)
+	var players = get_tree().get_nodes_in_group("Jogadores")
+	for i in players:
+		if i.name == str(id):
+			i.queue_free()
 	
 # client only
 func connected_to_server():
