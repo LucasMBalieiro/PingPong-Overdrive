@@ -1,6 +1,6 @@
 extends Control
 
-@export var Address = "0.0.0.0"
+@export var Address = "127.0.0.1"
 @export var port = 8910
 var peer
 
@@ -30,7 +30,7 @@ func peer_disconnected(id):
 	
 # client only
 func connected_to_server():
-	SendPlayerInformation.rpc_id(1, $SetName.text, multiplayer.get_unique_id())
+	SendPlayerInformation.rpc_id(1, $SetName.text, 0,multiplayer.get_unique_id())
 	print("Connected to Server: " + $SetName.text)
 
 # client only	
@@ -42,7 +42,7 @@ func _process(delta):
 	pass
 
 @rpc("any_peer")
-func SendPlayerInformation(name, id):
+func SendPlayerInformation(name: String, score: int, id):
 	if !GameManager.Players.has(id):
 		GameManager.Players[id] ={
 			"name" : name,
@@ -52,8 +52,7 @@ func SendPlayerInformation(name, id):
 	
 	if multiplayer.is_server():
 		for i in GameManager.Players:
-			SendPlayerInformation.rpc(GameManager.Players[i].name, i)
-
+			SendPlayerInformation.rpc(GameManager.Players[i].name, GameManager.Players[i].score, i)
 
 @rpc("any_peer","call_local")
 func StartGame():
@@ -74,7 +73,7 @@ func hostGame():
 
 func _on_host_button_down():
 	hostGame()
-	SendPlayerInformation($SetName.text, multiplayer.get_unique_id())
+	SendPlayerInformation($SetName.text, 0,multiplayer.get_unique_id())
 	print("Game hosted: " + $SetName.text)
 	pass 
 

@@ -31,4 +31,3 @@ shape = SubResource("SphereShape3D_ionvj")
 replication_config = SubResource("SceneReplicationConfig_ofk3g")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
