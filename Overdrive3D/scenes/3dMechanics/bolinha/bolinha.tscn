@@ -5,6 +5,9 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ox3dl"]
 bounce = 1.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wim6g"]
+albedo_color = Color(1, 1, 0, 1)
+
 [sub_resource type="SphereMesh" id="SphereMesh_k3p6x"]
 radius = 0.1
 height = 0.2
@@ -22,6 +25,9 @@ physics_material_override = SubResource("PhysicsMaterial_ox3dl")
 script = ExtResource("1_2mpv7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 2
+material_override = SubResource("StandardMaterial3D_wim6g")
+cast_shadow = 0
 mesh = SubResource("SphereMesh_k3p6x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

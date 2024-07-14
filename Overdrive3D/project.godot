@@ -86,6 +86,10 @@ close={
 ]
 }
 
+[layer_names]
+
+3d_render/layer_2="Ball Layer"
+
 [physics]
 
 3d/default_linear_damp=0.0

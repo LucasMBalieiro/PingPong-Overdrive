@@ -13,11 +13,11 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("reset"):
-		reset_bolinha.rpc()		
-		
+		reset_bolinha.rpc()
+
 	if Input.is_action_just_pressed("gravity"):
 		speed = 1.3
-		
+
 @rpc("any_peer", "call_local")
 func reset_bolinha():
 	has_started = false
@@ -25,6 +25,7 @@ func reset_bolinha():
 	set_linear_velocity(Vector3(0, 0, 0))
 	set_angular_velocity(Vector3(0,0,0))
 	set_position(Vector3(1.8, 1, 4))
+    set_rotation(Vector3(0,0,0))
 	SendHasReset.rpc()
 
 @rpc("any_peer", "call_local")
@@ -32,7 +33,7 @@ func move_bolinha(player1, direcao):
 	
 	if speed <= 2.5:
 		speed += 0.1
-	
+
 	if player1:
 		set_last_player_hit(true)
 		gravity_scale = speed * speed
@@ -68,7 +69,7 @@ func move_bolinha(player1, direcao):
 			set_linear_velocity(Vector3(0, 0, 0))
 			set_axis_velocity(Vector3(0,0,0))
 			apply_central_impulse(Vector3(2, 3.5, 7) * speed)
-			
+
 func set_last_player_hit(player1: bool):
 	has_started = true
 	player1_previous_hit = player1
@@ -78,13 +79,13 @@ func _on_body_entered(body):
 		return
 	if multiplayer.is_server():
 		SendBallInformation(player1_previous_hit, position)
-	
+
 @rpc()
 func SendBallInformation(player1, ball_position):
 	GameManager.set_bolinha_info(player1, ball_position)
 	if multiplayer.is_server():
 		ReceiveBallInformation.rpc(player1, ball_position)
-	
+
 @rpc("any_peer")
 func ReceiveBallInformation(player1, ball_position):
 	GameManager.set_bolinha_info(player1, ball_position)

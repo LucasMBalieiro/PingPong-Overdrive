@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://dk6vp6tc8uhmd"]
+
+[ext_resource type="PackedScene" uid="uid://4gy1w67gre7q" path="res://scenes/mesa/mesa.tscn" id="1_8h433"]
+[ext_resource type="PackedScene" uid="uid://7yl5vn8y5gkx" path="res://scenes/bolinha/bolinha.tscn" id="2_lovsq"]
+[ext_resource type="PackedScene" uid="uid://dj6uthe21hwao" path="res://scenes/Character/character.tscn" id="3_jlm3m"]
+[ext_resource type="PackedScene" uid="uid://bisqlm1dmdgym" path="res://scenes/mesa/rede.tscn" id="4_q45dd"]
+[ext_resource type="Script" path="res://scenes/main/Ball Shadow Raycast.gd" id="5_jelcv"]
+[ext_resource type="Texture2D" uid="uid://ce5d53dsotwk3" path="res://textures/3d/shadow_blur.bmp" id="6_w6ohv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ieh81"]
+albedo_color = Color(0.466953, 0.326268, 0.169803, 1)
+metallic = 0.47
+metallic_specular = 0.61
+roughness = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vy80h"]
+material = SubResource("StandardMaterial3D_ieh81")
+size = Vector2(100, 100)
+
+[node name="Main" type="Node3D"]
+
+[node name="CameraIluminacao" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CameraIluminacao"]
+transform = Transform3D(0.461797, 0.730551, -0.50303, -0.387311, 0.676283, 0.626604, 0.797956, -0.0945347, 0.595255, -2.01702, 7.75253, 3.59685)
+light_cull_mask = 4293918723
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="CameraIluminacao"]
+transform = Transform3D(1, 0, 0, 0, 0.836391, 0.548133, 0, -0.548133, 0.836391, 0.210628, 5.91728, 10.4767)
+fov = 50.0
+
+[node name="Characters" type="Node3D" parent="."]
+
+[node name="Character" parent="Characters" instance=ExtResource("3_jlm3m")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 5.6)
+
+[node name="Character2" parent="Characters" instance=ExtResource("3_jlm3m")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, -5.6)
+player1 = false
+
+[node name="Mesa" parent="." instance=ExtResource("1_8h433")]
+
+[node name="Bolinha" parent="." instance=ExtResource("2_lovsq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1, 4)
+
+[node name="Rede" parent="." instance=ExtResource("4_q45dd")]
+transform = Transform3D(1.141, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.65, 0)
+mesh = SubResource("PlaneMesh_vy80h")
+
+[node name="RayCast3D" type="RayCast3D" parent="." node_paths=PackedStringArray("shadow_decal", "ball")]
+target_position = Vector3(0, -4, 0)
+collide_with_areas = true
+script = ExtResource("5_jelcv")
+shadow_decal = NodePath("Ball Shadow")
+ball = NodePath("../Bolinha")
+
+[node name="Ball Shadow" type="Decal" parent="RayCast3D"]
+size = Vector3(0.2, 1, 0.2)
+texture_albedo = ExtResource("6_w6ohv")
