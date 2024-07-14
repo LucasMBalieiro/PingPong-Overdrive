@@ -14,11 +14,13 @@ func _ready():
 		for spawn in get_tree().get_nodes_in_group("PlayerSpawnPoint"):
 			if spawn.name == str(index):
 				currentPlayer.global_position = spawn.global_position
+				GameManager.Players[i].player_assigned_number = index
 		
 		for camera in get_tree().get_nodes_in_group("CameraSpawnPoint"):
 			if camera.name == str(index) and !is_multiplayer_authority():
 				camera.current = true
 		index += 1
+	GameManager.build_player_number_to_id_rel()
 	pass
 
 

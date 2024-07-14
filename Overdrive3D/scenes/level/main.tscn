@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dk6vp6tc8uhmd"]
+[gd_scene load_steps=11 format=3 uid="uid://dk6vp6tc8uhmd"]
 
 [ext_resource type="PackedScene" uid="uid://dj6uthe21hwao" path="res://scenes/3dMechanics/Character/character.tscn" id="1_2dlmi"]
 [ext_resource type="Script" path="res://scenes/level/sceneManager.gd" id="1_ewtoi"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://5xaj5mefkwyc" path="res://scenes/3dMechanics/camera/camera.tscn" id="3_6jhmu"]
 [ext_resource type="PackedScene" uid="uid://7yl5vn8y5gkx" path="res://scenes/3dMechanics/bolinha/bolinha.tscn" id="3_cv6xa"]
 [ext_resource type="PackedScene" uid="uid://bisqlm1dmdgym" path="res://scenes/3dMechanics/mesa/rede.tscn" id="4_wsvap"]
+[ext_resource type="Script" path="res://scenes/level/ScoreBoardManager.gd" id="7_ai7dd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6umk"]
 albedo_color = Color(0, 0.137255, 1, 1)
@@ -55,3 +56,17 @@ mesh = SubResource("QuadMesh_yffma")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.77718, -25)
 material_override = SubResource("StandardMaterial3D_5uyth")
 mesh = SubResource("QuadMesh_yffma")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.0
+offset_right = 28.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "SCORE: 0 x 0"
+horizontal_alignment = 1
+script = ExtResource("7_ai7dd")

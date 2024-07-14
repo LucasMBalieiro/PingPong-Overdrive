@@ -2,10 +2,13 @@ extends Node
 
 var Players = {}
 var Bolinha = {}
+var number_to_id = {}
 
 var bounce_timeout:float = 10
 
 var game_started: bool = false
+
+var score_update_callback: Array[Callable] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,26 +30,40 @@ func reset_bolinha():
 		"one_bounce_in_own_field": false
 	}
 
+func build_player_number_to_id_rel():
+	for id in Players:
+		var number = Players[id].player_assigned_number
+		number_to_id[number] = id
+
+func register_to_receive_score(callback):
+	score_update_callback.append(callback)
+
+func update_scoreboard():
+	for callback_func in score_update_callback:
+		callback_func.call(Players[number_to_id[0]].score, Players[number_to_id[1]].score)
+
 func add_point(player: int):
-	print('ponto player', player)
+	var player_id = number_to_id[player]
+	Players[player_id].score += 1
+	update_scoreboard()
 	pass
 	
 func check_bounce_in_own_field(player1: bool):
-	var oponent: int = 2 if player1 else 1
+	var oponent: int = 1 if player1 else 0
 	if Bolinha.one_bounce_in_own_field:
 		add_point(oponent)
 	else:
 		Bolinha.one_bounce_in_own_field = true
 		
 func check_bounce_in_oponent_field(player1: bool, reset: bool):
-	var player: int = 1 if player1 else 2
+	var player: int = 0 if player1 else 1
 	var oponent_field_bounce = Bolinha.bounce_count
 	if Bolinha.one_bounce_in_own_field:
 		oponent_field_bounce -= 1
 	if oponent_field_bounce > 1:
-		add_point(player1)
+		add_point(player)
 	elif reset:
-		add_point(player1)
+		add_point(player)
 
 func validate_score(reset: bool):
 	if Bolinha.player1_last_hit:
@@ -59,7 +76,6 @@ func validate_score(reset: bool):
 			check_bounce_in_own_field(Bolinha.player1_last_hit)
 		else:
 			check_bounce_in_oponent_field(Bolinha.player1_last_hit, reset)
-	print(Bolinha)
 
 func set_bolinha_info(player1: bool, ball_position: Vector3):
 	if player1 != Bolinha.player1_last_hit:

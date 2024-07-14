@@ -25,7 +25,7 @@ func reset_bolinha():
 	set_linear_velocity(Vector3(0, 0, 0))
 	set_angular_velocity(Vector3(0,0,0))
 	set_position(Vector3(1.8, 1, 4))
-    set_rotation(Vector3(0,0,0))
+	set_rotation(Vector3(0,0,0))
 	SendHasReset.rpc()
 
 @rpc("any_peer", "call_local")
