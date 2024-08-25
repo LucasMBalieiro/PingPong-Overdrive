@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dk6vp6tc8uhmd"]
+[gd_scene load_steps=13 format=3 uid="uid://dk6vp6tc8uhmd"]
 
 [ext_resource type="PackedScene" uid="uid://dj6uthe21hwao" path="res://scenes/3dMechanics/Character/character.tscn" id="1_2dlmi"]
 [ext_resource type="Script" path="res://scenes/level/sceneManager.gd" id="1_ewtoi"]
@@ -7,15 +7,20 @@
 [ext_resource type="PackedScene" uid="uid://7yl5vn8y5gkx" path="res://scenes/3dMechanics/bolinha/bolinha.tscn" id="3_cv6xa"]
 [ext_resource type="PackedScene" uid="uid://bisqlm1dmdgym" path="res://scenes/3dMechanics/mesa/rede.tscn" id="4_wsvap"]
 [ext_resource type="Script" path="res://scenes/level/ScoreBoardManager.gd" id="7_ai7dd"]
+[ext_resource type="Texture2D" uid="uid://bsl5n82cp7wss" path="res://textures/3d/floor/aesthetic-minimal-white-grid-pattern-wallpaper_53876-96916.png" id="8_eoo8v"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6umk"]
 albedo_color = Color(0, 0.137255, 1, 1)
 
-[sub_resource type="QuadMesh" id="QuadMesh_yffma"]
-size = Vector2(15, 50)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5uyth"]
 albedo_color = Color(0.500741, 1.2153e-06, 1.44392e-07, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3piww"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc54t"]
+albedo_texture = ExtResource("8_eoo8v")
+uv1_scale = Vector3(5, 5, 5)
+point_size = 23.0
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_ewtoi")
@@ -25,10 +30,12 @@ PlayerScene = ExtResource("1_2dlmi")
 
 [node name="Light" type="DirectionalLight3D" parent="CameraIluminacao"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7, 0)
-light_energy = 1.2
+light_energy = 0.8
+light_angular_distance = 0.25
 shadow_enabled = true
 
 [node name="Camera" parent="CameraIluminacao" instance=ExtResource("3_6jhmu")]
+transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -1.05689, 0)
 
 [node name="3dAssetsTable" type="Node3D" parent="."]
 
@@ -50,16 +57,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.2)
 [node name="Player1teste" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.77718, 25)
 material_override = SubResource("StandardMaterial3D_w6umk")
-mesh = SubResource("QuadMesh_yffma")
+
+[node name="Control" type="Control" parent="Player1teste"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Player2teste" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.77718, -25)
 material_override = SubResource("StandardMaterial3D_5uyth")
-mesh = SubResource("QuadMesh_yffma")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="HUD"]
+modulate = Color(1, 0, 0, 1)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -70,3 +82,11 @@ grow_horizontal = 2
 text = "SCORE: 0 x 0"
 horizontal_alignment = 1
 script = ExtResource("7_ai7dd")
+
+[node name="floor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.24685, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+transform = Transform3D(61.046, 0, 0, 0, 61.046, 0, 0, 0, 61.046, -0.00711632, 0.559788, 0.0156541)
+mesh = SubResource("PlaneMesh_3piww")
+surface_material_override/0 = SubResource("StandardMaterial3D_lc54t")

@@ -1,15 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://dj6uthe21hwao"]
+[gd_scene load_steps=8 format=3 uid="uid://dj6uthe21hwao"]
 
 [ext_resource type="Script" path="res://scenes/3dMechanics/Character/character.gd" id="1_0tijo"]
 [ext_resource type="PackedScene" uid="uid://n5v7yi3o4k2w" path="res://scenes/3dMechanics/hitbox/hit_box.tscn" id="2_b2uxx"]
-[ext_resource type="Texture2D" uid="uid://cdgaaeqi7hev8" path="res://icon.svg" id="3_h27ti"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_hst5o"]
+[ext_resource type="Texture2D" uid="uid://iw0irwhhtjtf" path="res://textures/3d/Carlos Kano/UV Teste.png" id="3_wkx47"]
+[ext_resource type="ArrayMesh" uid="uid://dw6ksev0rcwuu" path="res://textures/3d/Carlos Kano/Carlos Kano 3D.obj" id="4_y3b6w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ufwph"]
-albedo_texture = ExtResource("3_h27ti")
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cjlge"]
+albedo_texture = ExtResource("3_wkx47")
+emission_enabled = true
+emission_energy_multiplier = 0.5
+emission_texture = ExtResource("3_wkx47")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_abotk"]
 
@@ -25,13 +25,10 @@ script = ExtResource("1_0tijo")
 [node name="HitBox" parent="." instance=ExtResource("2_b2uxx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28831, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HitBox"]
-layers = 4
-mesh = SubResource("BoxMesh_hst5o")
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["Jogadores"]]
+transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, 0, -3.40931, 0)
 material_override = SubResource("StandardMaterial3D_ufwph")
-mesh = SubResource("CapsuleMesh_cjlge")
+mesh = ExtResource("4_y3b6w")
 
 [node name="Can_dash" type="Timer" parent="."]
 one_shot = true
