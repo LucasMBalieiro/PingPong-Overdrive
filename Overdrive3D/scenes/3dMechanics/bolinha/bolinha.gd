@@ -5,6 +5,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var player1_previous_hit: bool = true
 var bounce_count: int = 0
 var has_started: bool = false
+@onready var hitsound = $hitsound
 
 func _ready():
 	contact_monitor = true
@@ -30,9 +31,12 @@ func reset_bolinha():
 	if position.z > 0:
 		set_position(Vector3(-1.8, 1, -4))
 		set_rotation(Vector3(0,0,0))
+		gravity_scale = 0
+
 	else:
 		set_position(Vector3(1.8, 1, 4))
 		set_rotation(Vector3(0,0,0))
+		gravity_scale = 0
 	SendHasReset.rpc()
 
 @rpc("any_peer", "call_local")
@@ -40,10 +44,9 @@ func move_bolinha(player1, direcao):
 	
 	if speed <= 2.5:
 		speed += 0.1
-
+	gravity_scale = speed * speed
 	if player1:
 		set_last_player_hit(true)
-		gravity_scale = speed * speed
 		if direcao == "A":
 			set_position(Vector3(position.x, 1, 4))
 			set_linear_velocity(Vector3(0, 0, 0))
@@ -65,7 +68,7 @@ func move_bolinha(player1, direcao):
 			set_position(Vector3(position.x, 1, -4))
 			set_linear_velocity(Vector3(0, 0, 0))
 			set_axis_velocity(Vector3(0,0,0))
-			apply_central_impulse(Vector3(-2, 3.5, 7) * speed)
+			apply_central_impulse(Vector3(2, 3.5, 7) * speed)
 		if direcao == "B":
 			set_position(Vector3(position.x, 1, -4))
 			set_linear_velocity(Vector3(0, 0, 0))
@@ -75,13 +78,14 @@ func move_bolinha(player1, direcao):
 			set_position(Vector3(position.x, 1, -4))
 			set_linear_velocity(Vector3(0, 0, 0))
 			set_axis_velocity(Vector3(0,0,0))
-			apply_central_impulse(Vector3(2, 3.5, 7) * speed)
+			apply_central_impulse(Vector3(-2, 3.5, 7) * speed)
 
 func set_last_player_hit(player1: bool):
 	has_started = true
 	player1_previous_hit = player1
 
 func _on_body_entered(body):
+	hitsound.play() #TODO: fazer essa desgraça ficar constante, pq que do nada o audio para??? 
 	if not has_started:
 		return
 	if multiplayer.is_server():

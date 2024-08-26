@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://7yl5vn8y5gkx"]
+[gd_scene load_steps=10 format=3 uid="uid://7yl5vn8y5gkx"]
 
 [ext_resource type="Script" path="res://scenes/3dMechanics/bolinha/bolinha.gd" id="1_2mpv7"]
 [ext_resource type="Texture2D" uid="uid://bui682eosrlrb" path="res://resources/3d/bolinha/sombra/shadow_blur.bmp" id="2_ja85v"]
 [ext_resource type="Script" path="res://scenes/3dMechanics/bolinha/test.gd" id="3_5o4nn"]
+[ext_resource type="AudioStream" uid="uid://lu3wvu7hw6pw" path="res://resources/sound/soundeffects/hitsound_mesa.wav" id="4_o8qom"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ox3dl"]
 bounce = 1.0
@@ -50,5 +51,10 @@ texture_albedo = ExtResource("2_ja85v")
 distance_fade_begin = 20.0
 cull_mask = 1
 script = ExtResource("3_5o4nn")
+
+[node name="hitsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_o8qom")
+pitch_scale = 1.2
+max_polyphony = 2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

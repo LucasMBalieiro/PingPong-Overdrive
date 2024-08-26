@@ -8,7 +8,7 @@ var player1: bool
 var dashing = false
 var can_dash = true
 var can_hit = true
-
+@onready var hitsound = $hitsound
 
 func _ready():
 	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
@@ -19,7 +19,7 @@ func _physics_process(delta):
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		movimentacao(delta)
 		move_border()
-		bater.rpc()
+		bater()
 
 
 func movimentacao(delta):
@@ -49,9 +49,9 @@ func dash():
 
 func hit_time():
 	can_hit = false
+	hitsound_play.rpc()
 	$Can_hit.start()
 
-@rpc("any_peer", "call_local")
 func bater():
 	var bodies = $HitBox.get_overlapping_bodies()
 	
@@ -75,6 +75,10 @@ func fix_rotation():
 	else:
 		player1 = false
 		set_rotation_degrees(Vector3(0, -90, 0))
+
+@rpc("any_peer", "call_local")
+func hitsound_play():
+	hitsound.play()
 
 func _on_can_dash_timeout():
 	can_dash = true
