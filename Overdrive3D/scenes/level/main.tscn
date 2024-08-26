@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dk6vp6tc8uhmd"]
+[gd_scene load_steps=14 format=3 uid="uid://dk6vp6tc8uhmd"]
 
 [ext_resource type="PackedScene" uid="uid://dj6uthe21hwao" path="res://scenes/3dMechanics/Character/character.tscn" id="1_2dlmi"]
 [ext_resource type="Script" path="res://scenes/level/sceneManager.gd" id="1_ewtoi"]
@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://7yl5vn8y5gkx" path="res://scenes/3dMechanics/bolinha/bolinha.tscn" id="3_cv6xa"]
 [ext_resource type="PackedScene" uid="uid://bisqlm1dmdgym" path="res://scenes/3dMechanics/mesa/rede.tscn" id="4_wsvap"]
 [ext_resource type="Script" path="res://scenes/level/ScoreBoardManager.gd" id="7_ai7dd"]
-[ext_resource type="Texture2D" uid="uid://bsl5n82cp7wss" path="res://textures/3d/floor/aesthetic-minimal-white-grid-pattern-wallpaper_53876-96916.png" id="8_eoo8v"]
+[ext_resource type="Texture2D" uid="uid://bsl5n82cp7wss" path="res://resources/3d/floor/aesthetic-minimal-white-grid-pattern-wallpaper_53876-96916.png" id="8_eoo8v"]
+[ext_resource type="AudioStream" uid="uid://2mule54agtt6" path="res://resources/sound/music/Background_loop.mp3" id="9_fb5so"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6umk"]
 albedo_color = Color(0, 0.137255, 1, 1)
@@ -83,10 +84,16 @@ text = "SCORE: 0 x 0"
 horizontal_alignment = 1
 script = ExtResource("7_ai7dd")
 
-[node name="floor" type="Node3D" parent="."]
+[node name="Floor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.24685, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 transform = Transform3D(61.046, 0, 0, 0, 61.046, 0, 0, 0, 61.046, -0.00711632, 0.559788, 0.0156541)
 mesh = SubResource("PlaneMesh_3piww")
 surface_material_override/0 = SubResource("StandardMaterial3D_lc54t")
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("9_fb5so")
+autoplay = true

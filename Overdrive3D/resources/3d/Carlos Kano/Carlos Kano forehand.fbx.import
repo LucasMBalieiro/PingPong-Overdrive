@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://djvkwfdlwc6d5"
-path="res://.godot/imported/Carlos Kano forehand.fbx-f76baa1848360129b2ce17d7d751dc87.scn"
+path="res://.godot/imported/Carlos Kano forehand.fbx-35e63e58ec5905a5836d9aafc40d0059.scn"
 
 [deps]
 
-source_file="res://textures/3d/Carlos Kano/Carlos Kano forehand.fbx"
-dest_files=["res://.godot/imported/Carlos Kano forehand.fbx-f76baa1848360129b2ce17d7d751dc87.scn"]
+source_file="res://resources/3d/Carlos Kano/Carlos Kano forehand.fbx"
+dest_files=["res://.godot/imported/Carlos Kano forehand.fbx-35e63e58ec5905a5836d9aafc40d0059.scn"]
 
 [params]
 

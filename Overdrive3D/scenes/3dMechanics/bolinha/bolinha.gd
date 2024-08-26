@@ -14,18 +14,25 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("reset"):
 		reset_bolinha.rpc()
+	
+	if position.y < -2.8:
+		reset_bolinha.rpc()
 
-	if Input.is_action_just_pressed("gravity"):
-		speed = 1.3
-
+#TODO: eu nao tenho a MINIMA ideia de como funciona o placar, taquei o fds e to resetando a bolinha só pela posiçao qnd cai
 @rpc("any_peer", "call_local")
 func reset_bolinha():
 	has_started = false
 	bounce_count = 0
+	speed = 1.3
 	set_linear_velocity(Vector3(0, 0, 0))
 	set_angular_velocity(Vector3(0,0,0))
-	set_position(Vector3(1.8, 1, 4))
-	set_rotation(Vector3(0,0,0))
+	
+	if position.z > 0:
+		set_position(Vector3(-1.8, 1, -4))
+		set_rotation(Vector3(0,0,0))
+	else:
+		set_position(Vector3(1.8, 1, 4))
+		set_rotation(Vector3(0,0,0))
 	SendHasReset.rpc()
 
 @rpc("any_peer", "call_local")

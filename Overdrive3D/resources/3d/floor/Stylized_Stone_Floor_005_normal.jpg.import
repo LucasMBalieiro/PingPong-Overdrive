@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fiy1gnk4nbi4"
-path.s3tc="res://.godot/imported/Rede_mtl_Alpha.png-7c09eed6fc834d547bd4f6da65a01099.s3tc.ctex"
+uid="uid://dnco11nwx08ef"
+path.s3tc="res://.godot/imported/Stylized_Stone_Floor_005_normal.jpg-30ea38bf740212fcb2368a4fb5709b1e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/3d/rede/Rede_mtl_Alpha.png"
-dest_files=["res://.godot/imported/Rede_mtl_Alpha.png-7c09eed6fc834d547bd4f6da65a01099.s3tc.ctex"]
+source_file="res://resources/3d/floor/Stylized_Stone_Floor_005_normal.jpg"
+dest_files=["res://.godot/imported/Stylized_Stone_Floor_005_normal.jpg-30ea38bf740212fcb2368a4fb5709b1e.s3tc.ctex"]
 
 [params]
 
@@ -20,12 +20,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://textures/3d/floor/Stylized_Stone_Floor_005_normal.jpg"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

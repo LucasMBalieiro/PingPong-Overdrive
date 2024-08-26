@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://7yl5vn8y5gkx"]
 
 [ext_resource type="Script" path="res://scenes/3dMechanics/bolinha/bolinha.gd" id="1_2mpv7"]
-[ext_resource type="Texture2D" uid="uid://bui682eosrlrb" path="res://textures/3d/bolinha/sombra/shadow_blur.bmp" id="2_ja85v"]
+[ext_resource type="Texture2D" uid="uid://bui682eosrlrb" path="res://resources/3d/bolinha/sombra/shadow_blur.bmp" id="2_ja85v"]
 [ext_resource type="Script" path="res://scenes/3dMechanics/bolinha/test.gd" id="3_5o4nn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ox3dl"]

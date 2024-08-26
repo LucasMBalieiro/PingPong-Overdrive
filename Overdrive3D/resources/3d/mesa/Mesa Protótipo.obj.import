@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://lafvhvviwx7g"
+path="res://.godot/imported/Mesa Protótipo.obj-f4abe715a10a62292de0c3cdb08371dc.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Mesa Protótipo.obj-f4abe715a10a62292de0c3cdb08371dc.mesh"]
+
+source_file="res://resources/3d/mesa/Mesa Protótipo.obj"
+dest_files=["res://.godot/imported/Mesa Protótipo.obj-f4abe715a10a62292de0c3cdb08371dc.mesh", "res://.godot/imported/Mesa Protótipo.obj-f4abe715a10a62292de0c3cdb08371dc.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

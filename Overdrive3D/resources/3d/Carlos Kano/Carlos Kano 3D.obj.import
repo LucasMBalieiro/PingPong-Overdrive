@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dw6ksev0rcwuu"
+path="res://.godot/imported/Carlos Kano 3D.obj-01340a2a9906da49f2ef4ae6f2ecbead.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Carlos Kano 3D.obj-01340a2a9906da49f2ef4ae6f2ecbead.mesh"]
+
+source_file="res://resources/3d/Carlos Kano/Carlos Kano 3D.obj"
+dest_files=["res://.godot/imported/Carlos Kano 3D.obj-01340a2a9906da49f2ef4ae6f2ecbead.mesh", "res://.godot/imported/Carlos Kano 3D.obj-01340a2a9906da49f2ef4ae6f2ecbead.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

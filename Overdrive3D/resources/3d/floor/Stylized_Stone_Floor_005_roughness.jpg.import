@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://iw0irwhhtjtf"
-path.s3tc="res://.godot/imported/UV Teste.png-144a446b841d336ae926790aea5ae531.s3tc.ctex"
+uid="uid://d3r6agda8wb2r"
+path.s3tc="res://.godot/imported/Stylized_Stone_Floor_005_roughness.jpg-0755c350f969a9b8e207a6ab7908cfd1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/3d/Carlos Kano/UV Teste.png"
-dest_files=["res://.godot/imported/UV Teste.png-144a446b841d336ae926790aea5ae531.s3tc.ctex"]
+source_file="res://resources/3d/floor/Stylized_Stone_Floor_005_roughness.jpg"
+dest_files=["res://.godot/imported/Stylized_Stone_Floor_005_roughness.jpg-0755c350f969a9b8e207a6ab7908cfd1.s3tc.ctex"]
 
 [params]
 

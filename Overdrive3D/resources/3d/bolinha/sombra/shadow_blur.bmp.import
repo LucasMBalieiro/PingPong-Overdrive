@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bskb55kfq1q7j"
-path="res://.godot/imported/Stylized_Stone_Floor_005_ambientOcclusion.jpg-2d7a00c1258cdb76a788cfe1448713fa.ctex"
+uid="uid://bui682eosrlrb"
+path="res://.godot/imported/shadow_blur.bmp-af110a555bd7cee01a982767d6501ef3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/3d/floor/Stylized_Stone_Floor_005_ambientOcclusion.jpg"
-dest_files=["res://.godot/imported/Stylized_Stone_Floor_005_ambientOcclusion.jpg-2d7a00c1258cdb76a788cfe1448713fa.ctex"]
+source_file="res://resources/3d/bolinha/sombra/shadow_blur.bmp"
+dest_files=["res://.godot/imported/shadow_blur.bmp-af110a555bd7cee01a982767d6501ef3.ctex"]
 
 [params]
 

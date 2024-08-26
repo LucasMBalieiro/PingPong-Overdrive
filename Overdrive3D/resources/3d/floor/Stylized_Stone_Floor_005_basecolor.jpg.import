@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bskfvk4ef7tmn"
-path.s3tc="res://.godot/imported/Stylized_Stone_Floor_005_basecolor.jpg-cd36ae1b577eb45e796ba616a22e804e.s3tc.ctex"
+path.s3tc="res://.godot/imported/Stylized_Stone_Floor_005_basecolor.jpg-6b1db272c567506c34d564dfd0822189.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/3d/floor/Stylized_Stone_Floor_005_basecolor.jpg"
-dest_files=["res://.godot/imported/Stylized_Stone_Floor_005_basecolor.jpg-cd36ae1b577eb45e796ba616a22e804e.s3tc.ctex"]
+source_file="res://resources/3d/floor/Stylized_Stone_Floor_005_basecolor.jpg"
+dest_files=["res://.godot/imported/Stylized_Stone_Floor_005_basecolor.jpg-6b1db272c567506c34d564dfd0822189.s3tc.ctex"]
 
 [params]
 

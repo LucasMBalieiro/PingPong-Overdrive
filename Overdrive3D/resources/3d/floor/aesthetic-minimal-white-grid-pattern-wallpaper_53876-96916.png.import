@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3r6agda8wb2r"
-path.s3tc="res://.godot/imported/Stylized_Stone_Floor_005_roughness.jpg-de823a2115ab2484e06d2bcc0c81bf0d.s3tc.ctex"
+uid="uid://bsl5n82cp7wss"
+path.s3tc="res://.godot/imported/aesthetic-minimal-white-grid-pattern-wallpaper_53876-96916.png-7dec1102f714e640bee6d8ed6ef08713.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/3d/floor/Stylized_Stone_Floor_005_roughness.jpg"
-dest_files=["res://.godot/imported/Stylized_Stone_Floor_005_roughness.jpg-de823a2115ab2484e06d2bcc0c81bf0d.s3tc.ctex"]
+source_file="res://resources/3d/floor/aesthetic-minimal-white-grid-pattern-wallpaper_53876-96916.png"
+dest_files=["res://.godot/imported/aesthetic-minimal-white-grid-pattern-wallpaper_53876-96916.png-7dec1102f714e640bee6d8ed6ef08713.s3tc.ctex"]
 
 [params]
 

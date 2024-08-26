@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cntmqwsbb2k4b"
-path.s3tc="res://.godot/imported/Stylized_Stone_Floor_005_height.png-597a8278e6d8f05a01ee9216568bd43d.s3tc.ctex"
+uid="uid://ch20xpo5u3x4r"
+path.s3tc="res://.godot/imported/Mesa_mtl_BaseColor.png-39522a14e934e23ab32b2d1b1dfe8689.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/3d/floor/Stylized_Stone_Floor_005_height.png"
-dest_files=["res://.godot/imported/Stylized_Stone_Floor_005_height.png-597a8278e6d8f05a01ee9216568bd43d.s3tc.ctex"]
+source_file="res://resources/3d/mesa/Mesa_mtl_BaseColor.png"
+dest_files=["res://.godot/imported/Mesa_mtl_BaseColor.png-39522a14e934e23ab32b2d1b1dfe8689.s3tc.ctex"]
 
 [params]
 
@@ -24,8 +24,8 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=7
-roughness/src_normal="res://textures/3d/floor/Stylized_Stone_Floor_005_normal.jpg"
+roughness/mode=0
+roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
