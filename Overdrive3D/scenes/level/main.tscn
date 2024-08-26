@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dk6vp6tc8uhmd"]
+[gd_scene load_steps=15 format=3 uid="uid://dk6vp6tc8uhmd"]
 
 [ext_resource type="PackedScene" uid="uid://dj6uthe21hwao" path="res://scenes/3dMechanics/Character/character.tscn" id="1_2dlmi"]
 [ext_resource type="Script" path="res://scenes/level/sceneManager.gd" id="1_ewtoi"]
 [ext_resource type="PackedScene" uid="uid://4gy1w67gre7q" path="res://scenes/3dMechanics/mesa/mesa.tscn" id="2_kjm32"]
 [ext_resource type="PackedScene" uid="uid://5xaj5mefkwyc" path="res://scenes/3dMechanics/camera/camera.tscn" id="3_6jhmu"]
 [ext_resource type="PackedScene" uid="uid://7yl5vn8y5gkx" path="res://scenes/3dMechanics/bolinha/bolinha.tscn" id="3_cv6xa"]
+[ext_resource type="Environment" uid="uid://d2kkxcfh20hjg" path="res://scenes/level/environment.tres" id="4_ghwnl"]
 [ext_resource type="PackedScene" uid="uid://bisqlm1dmdgym" path="res://scenes/3dMechanics/mesa/rede.tscn" id="4_wsvap"]
 [ext_resource type="Script" path="res://scenes/level/ScoreBoardManager.gd" id="7_ai7dd"]
 [ext_resource type="Texture2D" uid="uid://bsl5n82cp7wss" path="res://resources/3d/floor/aesthetic-minimal-white-grid-pattern-wallpaper_53876-96916.png" id="8_eoo8v"]
@@ -30,13 +31,17 @@ PlayerScene = ExtResource("1_2dlmi")
 [node name="CameraIluminacao" type="Node3D" parent="."]
 
 [node name="Light" type="DirectionalLight3D" parent="CameraIluminacao"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7, 0)
+transform = Transform3D(0.640764, 0.578827, -0.504362, -0.163772, 0.744877, 0.64679, 0.750067, -0.331839, 0.572086, 6.87, 8.35, 0.855)
+light_color = Color(0.968627, 1, 1, 1)
 light_energy = 0.8
 light_angular_distance = 0.25
 shadow_enabled = true
 
 [node name="Camera" parent="CameraIluminacao" instance=ExtResource("3_6jhmu")]
 transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -1.05689, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="CameraIluminacao"]
+environment = ExtResource("4_ghwnl")
 
 [node name="3dAssetsTable" type="Node3D" parent="."]
 

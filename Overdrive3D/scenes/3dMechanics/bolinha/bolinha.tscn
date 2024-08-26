@@ -11,8 +11,12 @@ bounce = 1.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wim6g"]
 albedo_color = Color(1, 0.603922, 0, 1)
 roughness = 0.6
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 16.0
+rim_enabled = true
+rim_tint = 0.43
 clearcoat_enabled = true
-clearcoat = 0.39
+clearcoat = 0.3
 clearcoat_roughness = 0.19
 subsurf_scatter_enabled = true
 subsurf_scatter_strength = 1.0

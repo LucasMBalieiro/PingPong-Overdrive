@@ -8,6 +8,17 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qm0ib"]
 albedo_texture = ExtResource("3_6ct61")
+albedo_texture_force_srgb = true
+metallic_specular = 0.0
+roughness_texture_channel = 4
+normal_enabled = true
+normal_scale = 11.79
+rim_enabled = true
+rim = 0.15
+rim_tint = 0.0
+clearcoat = 0.42
+clearcoat_roughness = 1.0
+subsurf_scatter_skin_mode = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_abotk"]
 

@@ -11,5 +11,8 @@ func _ready():
 func _process(delta):
 	pass
 
-func show_score(left_score: int, right_score: int):
-	text = 'SCORE: ' + str(left_score) + ' X ' + str(right_score)
+func show_score(left_player: Dictionary, right_player: Dictionary):
+	if left_player.set_points > 0 or right_player.set_points > 0:
+		text = 'SCORE: [' + str(left_player.set_points) + '] ' + str(left_player.score) + ' X ' + str(right_player.score) + ' [' + str(right_player.set_points) + ']'
+	else:
+		text = 'SCORE: ' + str(left_player.score) + ' X ' + str(right_player.score)

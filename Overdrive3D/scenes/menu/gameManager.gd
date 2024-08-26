@@ -5,6 +5,7 @@ var Bolinha = {}
 var number_to_id = {}
 
 var bounce_timeout:float = 10
+var set_points = 11
 
 var game_started: bool = false
 
@@ -38,14 +39,42 @@ func build_player_number_to_id_rel():
 func register_to_receive_score(callback):
 	score_update_callback.append(callback)
 
-func update_scoreboard():
+func update_score():
+	check_game_sets()
 	for callback_func in score_update_callback:
-		callback_func.call(Players[number_to_id[0]].score, Players[number_to_id[1]].score)
+		callback_func.call(Players[number_to_id[0]], Players[number_to_id[1]])
+
+func check_game_sets():
+	if Players[number_to_id[0]].score >= (set_points - 1) and Players[number_to_id[1]].score >= (set_points - 1):
+		if Players[number_to_id[0]].score >= (Players[number_to_id[1]].score + 2):
+			Players[number_to_id[0]].set_points += 1
+			Players[number_to_id[0]].score = 0
+			Players[number_to_id[1]].score = 0
+		if Players[number_to_id[1]].score >= (Players[number_to_id[0]].score + 2):
+			Players[number_to_id[1]].set_points += 1
+			Players[number_to_id[1]].score = 0
+			Players[number_to_id[0]].score = 0
+	else:
+		if Players[number_to_id[0]].score >= set_points:
+			Players[number_to_id[0]].set_points += 1
+			Players[number_to_id[0]].score = 0
+			Players[number_to_id[1]].score = 0
+		
+		if Players[number_to_id[1]].score >= set_points:
+			Players[number_to_id[1]].set_points += 1
+			Players[number_to_id[1]].score = 0
+			Players[number_to_id[0]].score = 0
+			
 
 func add_point(player: int):
 	var player_id = number_to_id[player]
+	var oponent_id = number_to_id[int(not bool(player))]
 	Players[player_id].score += 1
-	update_scoreboard()
+	Players[player_id].is_scoring = true
+	Players[oponent_id].is_scoring = false
+	update_score()
+	Players[player_id].is_scoring = false
+	Players[oponent_id].is_scoring = false
 	pass
 	
 func check_bounce_in_own_field(player1: bool):
@@ -90,5 +119,5 @@ func mark_as_started():
 	
 func mark_as_reset():
 	validate_score(true)
-	reset_bolinha()
+	
 	

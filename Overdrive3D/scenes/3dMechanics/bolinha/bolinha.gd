@@ -11,33 +11,40 @@ func _ready():
 	contact_monitor = true
 	set_max_contacts_reported(1)
 	Engine.set_physics_ticks_per_second(128)
+	GameManager.register_to_receive_score(smart_reset)
 
 func _process(_delta):
 	if Input.is_action_just_pressed("reset"):
-		reset_bolinha.rpc()
+		SendHasReset.rpc()
+	if position.y < -5:
+		SendHasReset.rpc()
 	
-	if position.y < -2.8:
-		reset_bolinha.rpc()
 
 #TODO: eu nao tenho a MINIMA ideia de como funciona o placar, taquei o fds e to resetando a bolinha só pela posiçao qnd cai
-@rpc("any_peer", "call_local")
-func reset_bolinha():
+#RELAXA, EU CUIDO DISSO, FIZ UM ESPAGUETE COM ESSE PLACAR
+#@rpc("any_peer", "call_local")
+func reset_bolinha(player1 = null, player2 = null):
+	# Players são os dicionarios de GameManager
+	
 	has_started = false
 	bounce_count = 0
 	speed = 1.3
-	set_linear_velocity(Vector3(0, 0, 0))
-	set_angular_velocity(Vector3(0,0,0))
-	
-	if position.z > 0:
+	if player1 == null or player2 == null:
+		set_position(Vector3(1.8, 1, 4))
+	elif player2.player_assigned_number == 1 and player2.is_scoring:
 		set_position(Vector3(-1.8, 1, -4))
-		set_rotation(Vector3(0,0,0))
-		gravity_scale = 0
-
+	elif player1.player_assigned_number == 1 and player1.is_scoring:
+		set_position(Vector3(-1.8, 1, -4))
 	else:
 		set_position(Vector3(1.8, 1, 4))
-		set_rotation(Vector3(0,0,0))
-		gravity_scale = 0
-	SendHasReset.rpc()
+	set_linear_velocity(Vector3(0, 0, 0))
+	set_angular_velocity(Vector3(0,0,0))
+	set_rotation(Vector3(0,0,0))
+	gravity_scale = 0
+	GameManager.reset_bolinha()
+	
+func smart_reset(player1: Dictionary, player2: Dictionary):
+	reset_bolinha(player1, player2)
 
 @rpc("any_peer", "call_local")
 func move_bolinha(player1, direcao):
@@ -105,6 +112,6 @@ func ReceiveBallInformation(player1, ball_position):
 func SendHasStarted():
 	GameManager.mark_as_started()
 
-@rpc("any_peer")
+@rpc("any_peer", "call_local")
 func SendHasReset():
 	GameManager.mark_as_reset()
