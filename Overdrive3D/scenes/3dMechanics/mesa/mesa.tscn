@@ -9,6 +9,9 @@ size = Vector3(8.06396, 0.2, 9.62555)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3bj5u"]
 albedo_texture = ExtResource("2_yrs43")
 roughness = 0.15
+emission_enabled = true
+emission_energy_multiplier = 0.25
+emission_texture = ExtResource("2_yrs43")
 rim = 0.2
 clearcoat_enabled = true
 clearcoat_roughness = 1.0
