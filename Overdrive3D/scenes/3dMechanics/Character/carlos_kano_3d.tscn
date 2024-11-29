@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://ky68rieffrm"]
+
+[ext_resource type="PackedScene" uid="uid://dutg2gpqxces" path="res://scenes/3dMechanics/Character/Carlos Kano 3D.gltf" id="1_w52jk"]
+[ext_resource type="Texture2D" uid="uid://dhllupowil28n" path="res://scenes/3dMechanics/Character/UV Teste.png" id="2_t5opx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_63okn"]
+albedo_texture = ExtResource("2_t5opx")
+
+[node name="Carlos Kano 3D" instance=ExtResource("1_w52jk")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(0.111756, -0.0469141, 0.00528192, 0.992614)
+bones/4/rotation = Quaternion(0.0236248, 0.0477522, -0.0120857, 0.998507)
+bones/5/position = Vector3(-2.38035e-10, 0.0558585, 0.0111515)
+bones/5/rotation = Quaternion(-0.13886, -0.0130969, 0.0111125, 0.990163)
+bones/6/rotation = Quaternion(-0.832244, -0.436965, 0.245135, -0.237361)
+bones/7/rotation = Quaternion(-0.26858, 0.0892115, 0.167548, 0.94437)
+bones/8/rotation = Quaternion(-0.398917, 0.197152, 0.235736, 0.863959)
+bones/9/rotation = Quaternion(0.0648275, 5.70683e-09, -0.00520302, 0.997883)
+bones/10/rotation = Quaternion(0.589411, -0.374692, 0.586459, 0.410204)
+bones/11/rotation = Quaternion(0.237185, 0.0785866, 0.0781288, 0.965123)
+bones/12/rotation = Quaternion(0.0479243, 0.173471, -0.24299, 0.953188)
+bones/13/rotation = Quaternion(0.265856, -0.409561, -0.281778, 0.825943)
+bones/14/rotation = Quaternion(0.0381086, 0.0933693, 0.994098, -0.0399941)
+bones/15/rotation = Quaternion(-0.0223937, 0.233577, 0.00734028, 0.972053)
+bones/16/rotation = Quaternion(0.403818, -0.14064, -0.0115911, 0.90389)
+bones/19/rotation = Quaternion(-0.00435324, -0.041246, 0.991187, 0.125807)
+bones/20/rotation = Quaternion(-0.165347, -0.078499, -0.00453149, 0.983096)
+bones/21/rotation = Quaternion(0.332355, -0.0862206, 0.155033, 0.926321)
+
+[node name="Carlos_Kano" parent="Armature/Skeleton3D" index="0"]
+material_override = SubResource("StandardMaterial3D_63okn")

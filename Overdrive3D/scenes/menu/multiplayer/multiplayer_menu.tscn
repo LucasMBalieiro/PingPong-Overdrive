@@ -1,15 +1,15 @@
-[gd_scene load_steps=18 format=4 uid="uid://yk427ajkg7br"]
+[gd_scene load_steps=17 format=4 uid="uid://yk427ajkg7br"]
 
 [ext_resource type="Script" path="res://scenes/menu/multiplayer/multiplayer_menu.gd" id="1_l3aet"]
 [ext_resource type="PackedScene" uid="uid://4gy1w67gre7q" path="res://scenes/3dMechanics/mesa/mesa.tscn" id="2_drog0"]
 [ext_resource type="Texture2D" uid="uid://bjwxccjfkge5" path="res://resources/sprites/logo.png" id="2_igh4q"]
+[ext_resource type="PackedScene" uid="uid://ky68rieffrm" path="res://scenes/3dMechanics/Character/carlos_kano_3d.tscn" id="3_d1vrn"]
 [ext_resource type="PackedScene" uid="uid://bisqlm1dmdgym" path="res://scenes/3dMechanics/mesa/rede.tscn" id="4_o7ssf"]
 [ext_resource type="Script" path="res://scenes/menu/multiplayer/bolinha_menu.gd" id="5_ir5de"]
 [ext_resource type="AudioStream" uid="uid://lu3wvu7hw6pw" path="res://resources/sound/soundeffects/hitsound_mesa.wav" id="5_pen0o"]
 [ext_resource type="Environment" uid="uid://d2kkxcfh20hjg" path="res://scenes/level/environment.tres" id="5_qv2av"]
 [ext_resource type="Texture2D" uid="uid://bsl5n82cp7wss" path="res://resources/3d/floor/aesthetic-minimal-white-grid-pattern-wallpaper_53876-96916.png" id="5_yyuw8"]
-[ext_resource type="Texture2D" uid="uid://iw0irwhhtjtf" path="res://resources/3d/Carlos Kano/UV Teste.png" id="7_3tm3r"]
-[ext_resource type="ArrayMesh" uid="uid://dw6ksev0rcwuu" path="res://resources/3d/Carlos Kano/Carlos Kano 3D.obj" id="8_1tfqs"]
+[ext_resource type="Script" path="res://scenes/3dMechanics/Character/carlos_kano_main_menu.gd" id="9_xw8oo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oeyhy"]
 albedo_color = Color(1, 0.603922, 0, 1)
@@ -27,20 +27,6 @@ subsurf_scatter_strength = 1.0
 [sub_resource type="SphereMesh" id="SphereMesh_j1omr"]
 radius = 0.1
 height = 0.2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_adtfs"]
-albedo_texture = ExtResource("7_3tm3r")
-albedo_texture_force_srgb = true
-metallic_specular = 0.0
-roughness_texture_channel = 4
-normal_enabled = true
-normal_scale = 11.79
-rim_enabled = true
-rim = 0.15
-rim_tint = 0.0
-clearcoat = 0.42
-clearcoat_roughness = 1.0
-subsurf_scatter_skin_mode = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3mcke"]
 
@@ -68,6 +54,14 @@ grow_vertical = 2
 script = ExtResource("1_l3aet")
 metadata/_edit_horizontal_guides_ = [-24.0]
 
+[node name="Local" type="Button" parent="."]
+visible = false
+offset_left = 240.0
+offset_top = 810.0
+offset_right = 540.0
+offset_bottom = 882.0
+text = "Join"
+
 [node name="Host" type="Button" parent="."]
 layout_mode = 0
 offset_left = 120.0
@@ -85,6 +79,7 @@ offset_bottom = 477.0
 text = "Join"
 
 [node name="StartGame" type="Button" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 120.0
 offset_top = 405.0
@@ -216,6 +211,10 @@ texture = ExtResource("2_igh4q")
 
 [node name="3dAssetsTable" type="Node3D" parent="MenuBG"]
 
+[node name="Carlos Kano 3D2" parent="MenuBG/3dAssetsTable" instance=ExtResource("3_d1vrn")]
+transform = Transform3D(1.94436, 0, -2.28462, 0, 3, 0, 2.28462, 0, 1.94436, 2.705, 0.13, -3.305)
+script = ExtResource("9_xw8oo")
+
 [node name="Mesa" parent="MenuBG/3dAssetsTable" instance=ExtResource("2_drog0")]
 
 [node name="Rede" parent="MenuBG/3dAssetsTable" instance=ExtResource("4_o7ssf")]
@@ -242,12 +241,6 @@ stream = ExtResource("5_pen0o")
 pitch_scale = 1.2
 max_polyphony = 2
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="MenuBG/3dAssetsTable" groups=["Jogadores"]]
-transform = Transform3D(1.94436, 0, -2.28462, 0, 3, 0, 2.28462, 0, 1.94436, 4.27, -2.17, -3.305)
-material_override = SubResource("StandardMaterial3D_adtfs")
-mesh = ExtResource("8_1tfqs")
-skeleton = NodePath("../Light")
-
 [node name="Floor" type="Node3D" parent="MenuBG"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.24685, 0)
 
@@ -263,6 +256,7 @@ transform = Transform3D(0.79653, 0.129829, -0.590495, 0, 0.976672, 0.214735, 0.6
 stream = SubResource("AudioStreamOggVorbis_w0ber")
 autoplay = true
 
+[connection signal="button_down" from="Local" to="." method="_on_join_button_down"]
 [connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
 [connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
 [connection signal="button_down" from="StartGame" to="." method="_on_start_game_button_down"]
