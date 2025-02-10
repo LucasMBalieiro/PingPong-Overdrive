@@ -11,6 +11,8 @@ var player1: bool
 var dashing = false
 var can_dash = true
 var can_hit = true
+var already_movemented
+var first_movement_callback
 @onready var hitsound = $hitsound
 
 func _ready():
@@ -20,6 +22,7 @@ func _ready():
 	animation_player.play('idle', 1, 0.25)
 	rng = RandomNumberGenerator.new()
 	animation_time = 0
+	already_movemented = false
 
 func _physics_process(delta):
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
@@ -67,6 +70,7 @@ func movimentacao(delta):
 	
 	if moved:
 		animation_time = 0
+		has_movemented()
 	if check_for_idle:
 		animation_time += delta
 		animation_player.pause()
@@ -119,6 +123,16 @@ func bater():
 			animation_player.play('Backahand')
 		else:
 			animation_player.play('forehand')
+			
+func has_movemented() -> void:
+	if already_movemented:
+		return
+	
+	already_movemented = true
+	first_movement_callback.call()
+		
+func register_callback_first_movement(callback):
+	first_movement_callback = callback
 
 @rpc("any_peer", "call_local")
 func fix_rotation():

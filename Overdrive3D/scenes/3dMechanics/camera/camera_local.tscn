@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://brnf05eatg0os"]
+
+[ext_resource type="Script" path="res://scenes/3dMechanics/camera/camera.gd" id="1_1nyin"]
+
+[node name="Camera" type="Node3D"]
+script = ExtResource("1_1nyin")
+
+[node name="0" type="Camera3D" parent="." groups=["CameraSpawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 6.2, 10)
+fov = 50.0
+
+[node name="1" type="Camera3D" parent="." groups=["CameraSpawnPoint"]]
+transform = Transform3D(-1, 5.01436e-08, -7.16125e-08, 0, 0.819152, 0.573576, 8.74228e-08, 0.573576, -0.819152, 0, 6.2, -10)
+fov = 50.0

@@ -21,6 +21,7 @@ func _ready():
 	
 	$Host.show()
 	$Join.show()
+	$Local.show()
 	
 	$SetNetwork/buttonPortHost.hide()
 	$SetNetwork/SetPortHost.hide()
@@ -113,6 +114,7 @@ func draw_player_list():
 func _on_host_button_down():
 	$Host.hide()
 	$Join.hide()
+	$Local.hide()
 	$SetNetwork/buttonPortHost.show()
 	$SetNetwork/SetPortHost.show()
 	$SetNetwork/PortaHost.show()
@@ -122,6 +124,7 @@ func _on_host_button_down():
 func _on_join_button_down():
 	$Host.hide()
 	$Join.hide()
+	$Local.hide()
 	
 	$SetNetwork/IPv4.show()
 	$SetNetwork/SetIpv4.show()
@@ -186,3 +189,25 @@ func _on_set_name_change(new_name: String):
 		draw_player_list()
 	else:
 		SendPlayerInformation.rpc_id(1, p_name, 0,multiplayer.get_unique_id())
+
+
+func _on_local_button_down() -> void:
+	GameManager.Players[0] ={
+		"name" : "Player 1",
+		"id" : 1,
+		"score": 0,
+		"set_points": 0
+	}
+	GameManager.Players[1] ={
+		"name" : "Player 2",
+		"id" : 2,
+		"score": 0,
+		"set_points": 0
+	}
+	
+	var scene = load("res://scenes/level/main_local.tscn").instantiate()
+	$MenuBG.queue_free()
+	get_tree().root.remove_child($MenuBG)
+	get_tree().root.add_child(scene)
+	self.hide()
+	pass # Replace with function body.

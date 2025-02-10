@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dk6vp6tc8uhmd"]
+[gd_scene load_steps=26 format=3 uid="uid://dk6vp6tc8uhmd"]
 
 [ext_resource type="PackedScene" uid="uid://dj6uthe21hwao" path="res://scenes/3dMechanics/Character/character.tscn" id="1_2dlmi"]
 [ext_resource type="Script" path="res://scenes/level/sceneManager.gd" id="1_ewtoi"]
@@ -8,8 +8,19 @@
 [ext_resource type="Environment" uid="uid://d2kkxcfh20hjg" path="res://scenes/level/environment.tres" id="4_ghwnl"]
 [ext_resource type="PackedScene" uid="uid://bisqlm1dmdgym" path="res://scenes/3dMechanics/mesa/rede.tscn" id="4_wsvap"]
 [ext_resource type="Script" path="res://scenes/level/ScoreBoardManager.gd" id="7_ai7dd"]
-[ext_resource type="Texture2D" uid="uid://bsl5n82cp7wss" path="res://resources/3d/floor/aesthetic-minimal-white-grid-pattern-wallpaper_53876-96916.png" id="8_eoo8v"]
+[ext_resource type="Texture2D" uid="uid://iabjcoym6k4c" path="res://resources/sprites/PingPongMenuScoreboard.png" id="8_eymds"]
+[ext_resource type="FontFile" uid="uid://dtnjm3l3kk8tj" path="res://resources/fonts/Pink Blue.ttf" id="8_f1we1"]
+[ext_resource type="Texture2D" uid="uid://cyddsjrqqq6qx" path="res://resources/sprites/PingPongMenuDefault.png" id="8_lg54e"]
 [ext_resource type="AudioStream" uid="uid://2mule54agtt6" path="res://resources/sound/music/Background_loop.mp3" id="9_fb5so"]
+[ext_resource type="Theme" uid="uid://delbx1s5xeety" path="res://lineEditTheme.tres" id="11_fs6kc"]
+[ext_resource type="Script" path="res://scenes/level/playerControlTextScript.gd" id="12_5u7xn"]
+[ext_resource type="Script" path="res://scenes/level/player_win.gd" id="13_35mkm"]
+[ext_resource type="Texture2D" uid="uid://gss20o4lrcdj" path="res://resources/sprites/PingPongMenuHover.png" id="15_vp343"]
+[ext_resource type="Texture2D" uid="uid://bskfvk4ef7tmn" path="res://resources/3d/floor/Stylized_Stone_Floor_005_basecolor.jpg" id="16_gkjkl"]
+[ext_resource type="Texture2D" uid="uid://bskb55kfq1q7j" path="res://resources/3d/floor/Stylized_Stone_Floor_005_ambientOcclusion.jpg" id="17_ouufi"]
+[ext_resource type="Texture2D" uid="uid://cntmqwsbb2k4b" path="res://resources/3d/floor/Stylized_Stone_Floor_005_height.png" id="18_ewj16"]
+[ext_resource type="Texture2D" uid="uid://dnco11nwx08ef" path="res://resources/3d/floor/Stylized_Stone_Floor_005_normal.jpg" id="19_1ua2l"]
+[ext_resource type="Texture2D" uid="uid://d3r6agda8wb2r" path="res://resources/3d/floor/Stylized_Stone_Floor_005_roughness.jpg" id="20_lsyga"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6umk"]
 albedo_color = Color(0, 0.137255, 1, 1)
@@ -17,12 +28,19 @@ albedo_color = Color(0, 0.137255, 1, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5uyth"]
 albedo_color = Color(0.500741, 1.2153e-06, 1.44392e-07, 1)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_3piww"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_nqnff"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc54t"]
-albedo_texture = ExtResource("8_eoo8v")
-uv1_scale = Vector3(5, 5, 5)
-point_size = 23.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqxo2"]
+albedo_texture = ExtResource("16_gkjkl")
+metallic = 1.0
+roughness_texture = ExtResource("20_lsyga")
+normal_enabled = true
+normal_texture = ExtResource("19_1ua2l")
+ao_enabled = true
+ao_texture = ExtResource("17_ouufi")
+heightmap_enabled = true
+heightmap_texture = ExtResource("18_ewj16")
+uv1_scale = Vector3(10, 10, 10)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_ewtoi")
@@ -76,26 +94,196 @@ material_override = SubResource("StandardMaterial3D_5uyth")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="HUD"]
-modulate = Color(1, 0, 0, 1)
+[node name="Control" type="Control" parent="HUD"]
+layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -28.0
-offset_right = 28.0
-offset_bottom = 23.0
 grow_horizontal = 2
-text = "SCORE: 0 x 0"
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Control"]
+modulate = Color(1, 1, 1, 0.556863)
+custom_minimum_size = Vector2(450, 108)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("8_eymds")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.0
+offset_top = 25.0
+offset_right = 49.0
+offset_bottom = 79.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("8_f1we1")
+theme_override_font_sizes/font_size = 50
+text = "0 x 0"
 horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("7_ai7dd")
+
+[node name="PlayerControls" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/PlayerControls"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -157.0
+offset_top = -166.5
+offset_right = 157.0
+offset_bottom = 166.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_fs6kc")
+text = "Controles:
+A  | Analógico Esq. | D-Pad Esq. - mover para a esquerda
+D | Analógico Esq.| D-Pad Dir. - Direita para a direita
+
+J  | Controle X - Bater para a esquerda
+K | Controle A - Bater para o centro
+L | Controle B - Bater para a direita
+
+Shift | Controle LB  + Direção - Dash
+
+(Movemente-se!)"
+fit_content = true
+autowrap_mode = 0
+shortcut_keys_enabled = false
+script = ExtResource("12_5u7xn")
+
+[node name="Player1Win" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_35mkm")
+
+[node name="TextureRect2" type="TextureRect" parent="HUD/Player1Win"]
+custom_minimum_size = Vector2(450, 108)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -54.0
+offset_right = 225.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_lg54e")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/Player1Win"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.0
+offset_top = -27.0
+offset_right = 174.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("8_f1we1")
+theme_override_font_sizes/font_size = 50
+text = "Jogador 1 Venceu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2Win" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_35mkm")
+player_number = 1
+
+[node name="TextureRect2" type="TextureRect" parent="HUD/Player2Win"]
+custom_minimum_size = Vector2(450, 108)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -54.0
+offset_right = 225.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_vp343")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/Player2Win"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.0
+offset_top = -27.0
+offset_right = 174.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("8_f1we1")
+theme_override_font_sizes/font_size = 50
+text = "Jogador 2 Venceu"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Floor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.24685, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Floor"]
 transform = Transform3D(61.046, 0, 0, 0, 61.046, 0, 0, 0, 61.046, -0.00711632, 0.559788, 0.0156541)
-mesh = SubResource("PlaneMesh_3piww")
-surface_material_override/0 = SubResource("StandardMaterial3D_lc54t")
+mesh = SubResource("PlaneMesh_nqnff")
+surface_material_override/0 = SubResource("StandardMaterial3D_eqxo2")
 
 [node name="Sound" type="Node" parent="."]
 

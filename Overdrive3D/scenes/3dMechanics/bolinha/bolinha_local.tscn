@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://4eu6601yhsor"]
+
+[ext_resource type="Script" path="res://scenes/3dMechanics/bolinha/bolinha.gd" id="1_fhp8t"]
+[ext_resource type="Texture2D" uid="uid://bui682eosrlrb" path="res://resources/3d/bolinha/sombra/shadow_blur.bmp" id="2_tuhi8"]
+[ext_resource type="Script" path="res://scenes/3dMechanics/bolinha/test.gd" id="3_015jy"]
+[ext_resource type="AudioStream" uid="uid://lu3wvu7hw6pw" path="res://resources/sound/soundeffects/hitsound_mesa.wav" id="4_2e5ff"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ox3dl"]
+bounce = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wim6g"]
+albedo_color = Color(1, 0.603922, 0, 1)
+roughness = 0.6
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 16.0
+rim_enabled = true
+rim_tint = 0.43
+clearcoat_enabled = true
+clearcoat = 0.3
+clearcoat_roughness = 0.19
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_k3p6x"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ionvj"]
+radius = 0.1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ofk3g"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Bolinha" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_ox3dl")
+script = ExtResource("1_fhp8t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 2
+material_override = SubResource("StandardMaterial3D_wim6g")
+cast_shadow = 0
+mesh = SubResource("SphereMesh_k3p6x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ionvj")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ofk3g")
+
+[node name="Decal" type="Decal" parent="."]
+size = Vector3(0.2, 3, 0.2)
+texture_albedo = ExtResource("2_tuhi8")
+distance_fade_begin = 20.0
+cull_mask = 1
+script = ExtResource("3_015jy")
+
+[node name="hitsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_2e5ff")
+pitch_scale = 1.2
+max_polyphony = 2
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bisqlm1dmdgym"]
 
-[ext_resource type="ArrayMesh" uid="uid://bilbgjh066o2l" path="res://textures/3d/rede/Rede Protótipo.obj" id="1_dmfso"]
-[ext_resource type="Texture2D" uid="uid://fiy1gnk4nbi4" path="res://textures/3d/rede/Rede_mtl_Alpha.png" id="2_f4jj4"]
+[ext_resource type="ArrayMesh" uid="uid://bilbgjh066o2l" path="res://resources/3d/rede/Rede Protótipo.obj" id="1_dmfso"]
+[ext_resource type="Texture2D" uid="uid://fiy1gnk4nbi4" path="res://resources/3d/rede/Rede_mtl_Alpha.png" id="2_f4jj4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_43olx"]
 size = Vector3(8.2, 0.5, 0.001)
@@ -10,7 +10,6 @@ size = Vector3(8.2, 0.5, 0.001)
 blend_mode = 1
 cull_mode = 2
 depth_draw_mode = 1
-shading_mode = 0
 albedo_color = Color(0.788235, 0.788235, 0.788235, 1)
 albedo_texture = ExtResource("2_f4jj4")
 albedo_texture_force_srgb = true

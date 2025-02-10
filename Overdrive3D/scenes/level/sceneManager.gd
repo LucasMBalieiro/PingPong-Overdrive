@@ -15,7 +15,7 @@ func _ready():
 			if spawn.name == str(index):
 				currentPlayer.global_position = spawn.global_position
 				GameManager.Players[i].player_assigned_number = index
-		
+				currentPlayer.register_callback_first_movement($HUD/PlayerControls/RichTextLabel.hide)
 		for camera in get_tree().get_nodes_in_group("CameraSpawnPoint"):
 			if camera.name == str(index) and !is_multiplayer_authority():
 				camera.current = true

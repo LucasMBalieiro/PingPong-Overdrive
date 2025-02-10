@@ -10,6 +10,7 @@ var set_points = 11
 var game_started: bool = false
 
 var score_update_callback: Array[Callable] = []
+var game_win_update_callback: Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,6 +45,14 @@ func update_score():
 	for callback_func in score_update_callback:
 		callback_func.call(Players[number_to_id[0]], Players[number_to_id[1]])
 
+func register_to_receive_win(callback, player_number):
+	game_win_update_callback[player_number] = callback
+
+func send_game_win(player_number):
+	if game_win_update_callback.has(player_number):
+		game_win_update_callback[player_number].call(Players[number_to_id[player_number]].name)
+	get_tree().paused = true
+
 func check_game_sets():
 	if Players[number_to_id[0]].score >= (set_points - 1) and Players[number_to_id[1]].score >= (set_points - 1):
 		if Players[number_to_id[0]].score >= (Players[number_to_id[1]].score + 2):
@@ -64,7 +73,11 @@ func check_game_sets():
 			Players[number_to_id[1]].set_points += 1
 			Players[number_to_id[1]].score = 0
 			Players[number_to_id[0]].score = 0
-			
+
+	if Players[number_to_id[0]].set_points == 3:
+		send_game_win(0)
+	if Players[number_to_id[1]].set_points == 3:
+		send_game_win(1)
 
 func add_point(player: int):
 	var player_id = number_to_id[player]

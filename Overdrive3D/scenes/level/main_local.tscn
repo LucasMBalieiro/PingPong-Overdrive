@@ -1,0 +1,377 @@
+[gd_scene load_steps=27 format=3 uid="uid://cmegk6c5nwo65"]
+
+[ext_resource type="Script" path="res://scenes/level/sceneManager_local.gd" id="1_ki60f"]
+[ext_resource type="PackedScene" uid="uid://cg0lk2flkhoig" path="res://scenes/3dMechanics/Character/character_local.tscn" id="2_0qr56"]
+[ext_resource type="Environment" uid="uid://d2kkxcfh20hjg" path="res://scenes/level/environment.tres" id="4_tbv3y"]
+[ext_resource type="PackedScene" uid="uid://4gy1w67gre7q" path="res://scenes/3dMechanics/mesa/mesa.tscn" id="5_1yx4n"]
+[ext_resource type="PackedScene" uid="uid://4eu6601yhsor" path="res://scenes/3dMechanics/bolinha/bolinha_local.tscn" id="6_3bvwv"]
+[ext_resource type="Script" path="res://scenes/3dMechanics/bolinha/bolinha_local.gd" id="7_kdvyg"]
+[ext_resource type="PackedScene" uid="uid://bisqlm1dmdgym" path="res://scenes/3dMechanics/mesa/rede.tscn" id="7_s8oj8"]
+[ext_resource type="FontFile" uid="uid://dtnjm3l3kk8tj" path="res://resources/fonts/Pink Blue.ttf" id="8_2h7bj"]
+[ext_resource type="Texture2D" uid="uid://cyddsjrqqq6qx" path="res://resources/sprites/PingPongMenuDefault.png" id="8_2phhu"]
+[ext_resource type="Script" path="res://scenes/level/ScoreBoardManager.gd" id="8_813kf"]
+[ext_resource type="Texture2D" uid="uid://iabjcoym6k4c" path="res://resources/sprites/PingPongMenuScoreboard.png" id="8_q5n5y"]
+[ext_resource type="AudioStream" uid="uid://2mule54agtt6" path="res://resources/sound/music/Background_loop.mp3" id="10_ym6j8"]
+[ext_resource type="Theme" uid="uid://delbx1s5xeety" path="res://lineEditTheme.tres" id="11_m2xg4"]
+[ext_resource type="Script" path="res://scenes/level/splitscreen.gd" id="11_ugbhw"]
+[ext_resource type="Script" path="res://scenes/level/playerControlTextScript.gd" id="12_fs6s4"]
+[ext_resource type="Script" path="res://scenes/level/player_win.gd" id="13_5bqlf"]
+[ext_resource type="Texture2D" uid="uid://gss20o4lrcdj" path="res://resources/sprites/PingPongMenuHover.png" id="15_p5q8y"]
+[ext_resource type="Texture2D" uid="uid://bskfvk4ef7tmn" path="res://resources/3d/floor/Stylized_Stone_Floor_005_basecolor.jpg" id="16_1t22b"]
+[ext_resource type="Texture2D" uid="uid://bskb55kfq1q7j" path="res://resources/3d/floor/Stylized_Stone_Floor_005_ambientOcclusion.jpg" id="17_sg30p"]
+[ext_resource type="Texture2D" uid="uid://cntmqwsbb2k4b" path="res://resources/3d/floor/Stylized_Stone_Floor_005_height.png" id="18_q6mye"]
+[ext_resource type="Texture2D" uid="uid://dnco11nwx08ef" path="res://resources/3d/floor/Stylized_Stone_Floor_005_normal.jpg" id="19_tobjq"]
+[ext_resource type="Texture2D" uid="uid://d3r6agda8wb2r" path="res://resources/3d/floor/Stylized_Stone_Floor_005_roughness.jpg" id="20_1ueyp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6umk"]
+albedo_color = Color(0, 0.137255, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5uyth"]
+albedo_color = Color(0.500741, 1.2153e-06, 1.44392e-07, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3piww"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_005wp"]
+albedo_texture = ExtResource("16_1t22b")
+metallic = 1.0
+roughness_texture = ExtResource("20_1ueyp")
+normal_enabled = true
+normal_texture = ExtResource("19_tobjq")
+ao_enabled = true
+ao_texture = ExtResource("17_sg30p")
+heightmap_enabled = true
+heightmap_texture = ExtResource("18_q6mye")
+uv1_scale = Vector3(10, 10, 10)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_ki60f")
+PlayerScene = ExtResource("2_0qr56")
+
+[node name="CameraIluminacao" type="Node3D" parent="."]
+
+[node name="Light" type="DirectionalLight3D" parent="CameraIluminacao"]
+transform = Transform3D(0.640764, 0.578827, -0.504362, -0.163772, 0.744877, 0.64679, 0.750067, -0.331839, 0.572086, 6.87, 8.35, 0.855)
+light_color = Color(0.968627, 1, 1, 1)
+light_energy = 0.8
+light_angular_distance = 0.25
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="CameraIluminacao"]
+environment = ExtResource("4_tbv3y")
+
+[node name="3dAssetsTable" type="Node3D" parent="."]
+
+[node name="Mesa" parent="3dAssetsTable" instance=ExtResource("5_1yx4n")]
+
+[node name="Bolinha" parent="3dAssetsTable" instance=ExtResource("6_3bvwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1, 4)
+script = ExtResource("7_kdvyg")
+
+[node name="Rede" parent="3dAssetsTable" instance=ExtResource("7_s8oj8")]
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5.6)
+
+[node name="0" type="Node3D" parent="SpawnPoints" groups=["PlayerSpawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.2)
+
+[node name="1" type="Node3D" parent="SpawnPoints" groups=["PlayerSpawnPoint"]]
+
+[node name="Player1teste" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.77718, 25)
+material_override = SubResource("StandardMaterial3D_w6umk")
+
+[node name="Control" type="Control" parent="Player1teste"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Player2teste" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.77718, -25)
+material_override = SubResource("StandardMaterial3D_5uyth")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Scoreboard" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Scoreboard"]
+modulate = Color(1, 1, 1, 0.556863)
+custom_minimum_size = Vector2(450, 108)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("8_q5n5y")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/Scoreboard"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.0
+offset_top = 25.0
+offset_right = 49.0
+offset_bottom = 79.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("8_2h7bj")
+theme_override_font_sizes/font_size = 50
+text = "0 x 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_813kf")
+
+[node name="Player1Controls" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Player1Controls"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 131.42
+offset_top = -162.0
+offset_right = 445.42
+offset_bottom = 162.0
+grow_vertical = 2
+theme = ExtResource("11_m2xg4")
+text = "Controles:
+A  | Analógico Esq. | D-Pad Esq. - mover para a esquerda
+D | Analógico Esq.| D-Pad Dir. - Direita para a direita
+
+Q | Controle X - Bater para a esquerda
+W | Controle A - Bater para o centro
+E | Controle B - Bater para a direita
+
+Shift | Controle LB  + Direção - Dash
+
+(Movemente-se!)"
+fit_content = true
+autowrap_mode = 0
+shortcut_keys_enabled = false
+script = ExtResource("12_fs6s4")
+
+[node name="Player2Controls" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Player2Controls"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -443.785
+offset_top = -166.5
+offset_right = -129.785
+offset_bottom = 166.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("11_m2xg4")
+text = "Controles:
+J  | Analógico Esq. | D-Pad Esq. - mover para a esquerda
+L | Analógico Esq.| D-Pad Dir. - Direita para a direita
+
+U | Controle X - Bater para a esquerda
+I | Controle A - Bater para o centro
+O | Controle B - Bater para a direita
+
+B | Controle LB  + Direção - Dash
+
+(Movemente-se!)"
+fit_content = true
+autowrap_mode = 0
+shortcut_keys_enabled = false
+
+[node name="Player1Win" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_5bqlf")
+is_local = true
+
+[node name="TextureRect2" type="TextureRect" parent="HUD/Player1Win"]
+custom_minimum_size = Vector2(450, 108)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -54.0
+offset_right = 225.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_2phhu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/Player1Win"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.0
+offset_top = -27.0
+offset_right = 174.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("8_2h7bj")
+theme_override_font_sizes/font_size = 50
+text = "Jogador 1 Venceu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2Win" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_5bqlf")
+player_number = 1
+is_local = true
+
+[node name="TextureRect2" type="TextureRect" parent="HUD/Player2Win"]
+custom_minimum_size = Vector2(450, 108)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -54.0
+offset_right = 225.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_p5q8y")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/Player2Win"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.0
+offset_top = -27.0
+offset_right = 174.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("8_2h7bj")
+theme_override_font_sizes/font_size = 50
+text = "Jogador 2 Venceu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Floor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.24685, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(61.046, 0, 0, 0, 61.046, 0, 0, 0, 61.046, -0.00711632, 0.559788, 0.0156541)
+mesh = SubResource("PlaneMesh_3piww")
+surface_material_override/0 = SubResource("StandardMaterial3D_005wp")
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("10_ym6j8")
+volume_db = -10.0
+autoplay = true
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Control" type="Control" parent="Node"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HSplitContainer" parent="Node/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 576
+dragger_visibility = 2
+script = ExtResource("11_ugbhw")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Node/Control/HBoxContainer"]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Node/Control/HBoxContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(576, 648)
+render_target_update_mode = 4
+
+[node name="0" type="Camera3D" parent="Node/Control/HBoxContainer/SubViewportContainer/SubViewport" groups=["CameraSpawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 6.2, 10)
+fov = 50.0
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="Node/Control/HBoxContainer"]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Node/Control/HBoxContainer/SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(576, 648)
+render_target_update_mode = 4
+
+[node name="1" type="Camera3D" parent="Node/Control/HBoxContainer/SubViewportContainer2/SubViewport" groups=["CameraSpawnPoint"]]
+transform = Transform3D(-1, 5.01436e-08, -7.16126e-08, 0, 0.819152, 0.573576, 8.74228e-08, 0.573576, -0.819152, 0, 6.2, -10)
+fov = 50.0
